@@ -1,0 +1,426 @@
+﻿
+@{
+    Layout = "~/DummyLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+<body>
+
+    <h2>Part 1 : User Type Table</h2>
+    <div style="width:100%; margin:0 auto;">
+        <button class="AddUserType">Add Record</button>
+        <table id="UserTypeTable" class="table table-hover table-striped table-bordered" cellspacing="0" style="width:100%; overflow:auto; word-break:break-all;"></table>
+
+    </div>
+
+    <h2>Part 2 : Case Report Table</h2>
+    <div style="width:100%; margin:0 auto;">
+        <button class="AddCaseReport">Add Record</button>
+ 
+        <table id="CaseReportTable" class="table table-hover table-striped table-bordered" cellspacing="0" style="width:100%; overflow:auto; word-break:break-all;"></table>
+
+    </div>
+
+    <h2>Part 3 : User Information Table</h2>
+    <div style="width:100%; margin:0 auto;">
+        <button class="AddUserInformation">Add Record</button>
+        <table id="UserInformationTable" class="table table-hover table-striped table-bordered" cellspacing="0" style="width:100%; overflow:auto; word-break:break-all;"></table>
+
+    </div>
+
+
+
+    <!--UserTypeTable-->
+
+    <!--ADD MODAL BEGIN-->
+    <div class="modal fade" id="myModalAdd" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Insert : User Information</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="modal-body mx-3">
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Given Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Maiden Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Family Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="email" id="orangeForm-email" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-email">Email Address</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <input type="password" id="orangeForm-pass" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <input type="password" id="orangeForm-pass" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="btnAddRemarks" value="Insert" class="btn btn-primary btn-md btnAddRemarks" />
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    <!--ADD MODAL END-->
+
+    <!--UPDATE MODAL BEGIN-->
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Update : User Type</h3>
+                </div>
+
+                <div class="modal-body">
+                    <fieldset id="EditSection">
+                        <div class="control-label col-xs-12 col-sm-4">
+                            Hello World!
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnUpdateRemarks" value="Update" class="btn btn-primary btn-md btnUpdateRemarks" />
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    <!--UPDATE MOAL END-->
+
+
+
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        LoadUserType();
+        LoadCaseReport();
+        LoadUserInformation();
+    });
+
+ 
+
+    function LoadUserType() {
+        table = $('#UserTypeTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetUserType",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'UserTypeID': c.UserTypeID,
+                            'Description': c.Description,
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "Action",
+                    "render": function () {
+                        var del = "<a class='btn btn-danger btn-xs DeleteUserType'  title='Delete'><i class='fa fa-1x fa-trash'></i></a>";
+                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit'><i class = 'fa fa-1x fa-edit'></i></a>";
+                        return edit +"   "+del;
+                    },
+                    width: "80px"
+                },
+                {
+                    title: "UserTypeID",
+                    data: "UserTypeID"
+                },
+                {
+                    title: "Description",
+                    data: "Description"
+                },
+
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+        return table;
+    };
+
+    function LoadCaseReport() {
+        table = $('#CaseReportTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReport?UpdatedStatusID=5",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "Action",
+                    "render": function () {
+                        var del = "<a class='btn btn-danger btn-xs DeleteUserType'  title='Delete'><i class='fa fa-1x fa-trash'></i></a>";
+                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit'><i class = 'fa fa-1x fa-edit'></i></a>";
+                        return edit + "   " + del;
+                    },
+                    width: "80px"
+                },
+                {
+                    title: "Case Report #",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Environmental Concern ID",
+                    data: "EnvironmentalConcernID",
+                    visible: false
+
+                },
+                {
+                    title: "Full Name",
+                    data: "FullName" 
+                },
+                {
+                    title: "DateReported",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+                {
+                    title: "Update",
+                    data: "UpdatedStatus"
+                },
+                {
+                    title: "CaseLocation",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Coordinates",
+                    data: "Coordinates"
+                },
+                {
+                    title: "Notes",
+                    data: "Notes"
+                },
+
+
+
+
+
+
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+        return table;
+    };
+
+    function LoadUserInformation() {
+        table = $('#UserInformationTable').DataTable({
+            pageLength: 5,
+            bLengthChange: false,
+            destroy: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetUserInformation",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'UserInformationID': c.UserInformationID,
+                            'UserTypeID': c.UserTypeID,
+                            'Username': c.Username,
+                            'Password': c.Password,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'Email': c.Email,
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "Action",
+                    "render": function () {
+                        var del = "<a class='btn btn-danger btn-xs DeleteUserType'  title='Delete'><i class='fa fa-1x fa-trash'></i></a>";
+                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit'><i class = 'fa fa-1x fa-edit'></i></a>";
+                        return edit + "   " + del;
+                    },
+                    width: "80px"
+                },
+                {
+                    title: "UserInformationID",
+                    data: "UserInformationID"
+                },
+                {
+                    title: "UserTypeID",
+                    data: "UserTypeID"
+                },
+                {
+                    title: "Username",
+                    data: "Username"
+                },
+                {
+                    title: "Password",
+                    data: "Password",
+                    visible: false
+                },
+                {
+                    title: "FullName",
+                    data: "FullName"
+                },
+                {
+                    title: "Email",
+                    data: "Email"
+                },
+                {
+                    title: "Notes",
+                    data: "Notes",
+                    visible: false
+                }
+
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+        return table;
+    };
+
+
+    $(document).on("click", ".AddUserType", function () {
+        $('#myModalAdd').modal('show');
+    });
+
+    $(document).on("click", ".DeleteUserType", function () {
+        var data = table.row($(this).parents('tr')).data();
+        var UserTypeID = data["UserTypeID"]
+
+        
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        type: "GET",
+                        "url": "/DataDelete/DeleteUserType",
+                        dataType: "json",
+                        async: false,
+                        data: { UserTypeID: UserTypeID }
+                    });
+                    swal("Successfully Deleted!!", {
+                        icon: "success",
+
+                    });
+                    LoadUserType();
+                }
+            });
+    });
+
+    $(document).on("click", ".EditUserType", function () {
+        $('#myModalUpdate').modal('show');
+      //  var data = table.row($(this).parents('tr')).data();
+
+        //var Remarks_P = data["Remarks"];
+        //var IsHalfDay_P = data["IsHalfDay"];
+        //var DateOfAbsence_P = data["DateOfAbsence"];
+        //DateOfAbsence_P = moment(DateOfAbsence_P).format('MM/DD/YYYY');
+        //document.getElementById("tbRemarksUPD").value = Remarks_P;
+        //document.getElementById("tbHalfDayUPD").value = IsHalfDay_P;
+        //document.getElementById("tbDateOfAbsenceUPD").value = DateOfAbsence_P;
+        //OTALURID = data["AbsentID"];
+
+    });
+
+</script>

@@ -1,0 +1,354 @@
+﻿
+@{
+    Layout = @ViewBag.VBLayout;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="">Administrator</a></li>
+        <li class="breadcrumb-item active">Homepage</li>
+    </ol>
+    @ViewBag.DUMMY2
+   
+    @*<ul>
+        @foreach (var person in ViewBag.DUMMY)
+        {
+            <li>'@person.XCoordinates - @person.YCoordinates'</li>
+        }
+    </ul>*@
+
+    <!--DESCRIPTION START-->
+    <div class="card mb-4">
+        <div class="card-body">
+            Recent and Current Records of DENR-EMB
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">Solved Water Cases: @ViewBag.VBWater</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">Solved Land Cases: @ViewBag.VBLand</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">Pending Cases: @ViewBag.VBProgress</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">Community Users: @ViewBag.VBUsers</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--DESCRIPTION END-->
+    <!--TITLE START-->
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    Concern Status
+                </div>
+                <div class="card-body"><canvas id="myBarChart" width="100" height="50"></canvas></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Completed Land and Water Concerns
+                </div>
+                <div class="card-body"><canvas id="myPieChart" width="100" height="50"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            Recent Concerns
+        </div>
+
+
+        <div class="card-body">
+            <table id="CaseReportTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+            @*
+                overflow:auto; word-break:break-all;**@
+        </div>
+
+        <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+    </div>
+
+
+
+    <!--TITLE END-->
+    <!--ADD MODAL BEGIN-->
+    <div class="modal fade" id="myModalAdd" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Insert : User Information</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="modal-body mx-3">
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Username</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Given Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Maiden Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="text" id="orangeForm-name" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Family Name</label>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <input type="email" id="orangeForm-email" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-email">Email Address</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <input type="password" id="orangeForm-pass" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Password</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <input type="password" id="orangeForm-pass" class="form-control validate">
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Confirm Password</label>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="btnAddRemarks" value="Insert" class="btn btn-primary btn-md btnAddRemarks" />
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    <!--ADD MODAL END-->
+    <!--UPDATE MODAL BEGIN-->
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Update : User Type</h3>
+                </div>
+
+                <div class="modal-body">
+                    <fieldset id="EditSection">
+                        <div class="control-label col-xs-12 col-sm-4">
+                            Hello World!
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" id="btnUpdateRemarks" value="Update" class="btn btn-primary btn-md btnUpdateRemarks" />
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    <!--UPDATE MOAL END-->
+
+</body>
+</html>
+
+
+<script>
+
+    LoadCaseReport();
+    $(document).ready(function () {
+        
+    });
+
+
+    $(document).on("click", ".AddUserType", function () {
+        $('#myModalAdd').modal('show');
+
+    });
+
+    function LoadCaseReport() {
+        table = $('#CaseReportTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCurrentCaseReport?UpdatedStatusID=1",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Coordinates",
+                    data: "Coordinates"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+        
+        return table;
+    };
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    /*LIGHT COLORS
+     *  function getRandomColor() {
+                var letters = 'BCDEF'.split('');
+                var color = '#';
+                for (var i = 0; i < 6; i++ ) {
+                    color += letters[Math.floor(Math.random() * letters.length)];
+                }
+                return color;
+            }
+     * */
+
+    var PIE = document.getElementById("myPieChart");
+    var myPieChart = new Chart(PIE, {
+        type: 'pie',
+        data: {
+            labels: [@Html.Raw(ViewBag.ECName)],
+            datasets: [{
+                data: [@ViewBag.ECCount],
+                backgroundColor: [getRandomColor(), getRandomColor()],
+                    //['#00FFFF', '#32CD32']
+            }],
+        },
+    });
+
+    var BAR = document.getElementById("myBarChart");
+    var myBarChart = new Chart(BAR, {
+        type: 'bar',
+        data: {
+            labels: [@Html.Raw(ViewBag.SStatus)],
+            datasets: [{
+                data: [@ViewBag.SCount],
+                backgroundColor: [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()],
+
+            }],
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+
+</script>

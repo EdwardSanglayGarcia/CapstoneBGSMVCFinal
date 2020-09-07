@@ -1,0 +1,92 @@
+﻿@{
+    // Layout = "~/TerraTech/TerraShared/Administrator.cshtml";
+    Layout = "~/DummyLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Charts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+    <script>
+
+        var dynamicColors = function () {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "RGB(" + r + "," + g + "," + b + ")";
+        };
+
+        var barChartData =
+        {
+
+            labels: [@Html.Raw(ViewBag.ECName)],
+            datasets: [
+                {
+                    label: 'Manila',
+                    backgroundColor:
+                        [
+                            dynamicColors(),
+                            dynamicColors()
+                        ],
+                    borderWidth: 2,
+                    data: [45,30]
+                },
+                  {
+                    label: 'Makati',
+                    backgroundColor:
+                        [
+                            dynamicColors(),
+                            dynamicColors()
+                        ],
+                    borderWidth: 2,
+                    data: [23,50]
+                }
+
+            ],
+
+
+        };
+
+        window.onload = function () {
+            var ctx1 = document.getElementById("barcanvas").getContext("2d");
+            window.myBar = new Chart(ctx1,
+                {
+                    type: 'bar',
+                    data: barChartData,
+                    options:
+                    {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    min: 0
+                                }
+                            }]
+                        },
+                        title:
+                        {
+                            display: true,
+                            text: "Number of Environmental Concerns per Category 2020"
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true
+                    }
+                });
+        }
+    </script>
+</head>
+<body>
+    <div style="text-align: center">
+        <canvas id="barcanvas"></canvas>
+    </div>
+    @ViewBag.lols Registered Users!
+</body>
+
+</html>

@@ -1,0 +1,756 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C4DD36C1-6433-45D0-A647-1CC6B9DF4675}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MVCCapstoneBGS</RootNamespace>
+    <AssemblyName>MVCCapstoneBGS</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44314</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>packages\TweetSharp.2.3.1\lib\4.0\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\TweetSharp.2.3.1\lib\4.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="TweetSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>packages\TweetSharp.2.3.1\lib\4.0\TweetSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\autoFill.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.css" />
+    <Content Include="Content\DataTables\css\autoFill.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.css" />
+    <Content Include="Content\DataTables\css\autoFill.foundation.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.css" />
+    <Content Include="Content\DataTables\css\autoFill.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.css" />
+    <Content Include="Content\DataTables\css\autoFill.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\buttons.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.css" />
+    <Content Include="Content\DataTables\css\buttons.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.css" />
+    <Content Include="Content\DataTables\css\buttons.foundation.min.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.css" />
+    <Content Include="Content\DataTables\css\buttons.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.css" />
+    <Content Include="Content\DataTables\css\buttons.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\colReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\colReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\colReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\colReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\colReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.css" />
+    <Content Include="Content\DataTables\css\dataTables.material.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.css" />
+    <Content Include="Content\DataTables\css\dataTables.uikit.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedColumns.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.foundation.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.css" />
+    <Content Include="Content\DataTables\css\fixedHeader.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\keyTable.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.css" />
+    <Content Include="Content\DataTables\css\keyTable.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.css" />
+    <Content Include="Content\DataTables\css\keyTable.foundation.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.css" />
+    <Content Include="Content\DataTables\css\keyTable.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.css" />
+    <Content Include="Content\DataTables\css\keyTable.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\responsive.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.css" />
+    <Content Include="Content\DataTables\css\responsive.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.css" />
+    <Content Include="Content\DataTables\css\responsive.foundation.min.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.css" />
+    <Content Include="Content\DataTables\css\responsive.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.css" />
+    <Content Include="Content\DataTables\css\responsive.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowGroup.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowGroup.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.css" />
+    <Content Include="Content\DataTables\css\rowGroup.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowGroup.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\rowReorder.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.css" />
+    <Content Include="Content\DataTables\css\rowReorder.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.css" />
+    <Content Include="Content\DataTables\css\rowReorder.foundation.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.css" />
+    <Content Include="Content\DataTables\css\rowReorder.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\scroller.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.css" />
+    <Content Include="Content\DataTables\css\scroller.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.css" />
+    <Content Include="Content\DataTables\css\scroller.foundation.min.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.css" />
+    <Content Include="Content\DataTables\css\scroller.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.css" />
+    <Content Include="Content\DataTables\css\scroller.semanticui.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap.min.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.css" />
+    <Content Include="Content\DataTables\css\select.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.css" />
+    <Content Include="Content\DataTables\css\select.dataTables.min.css" />
+    <Content Include="Content\DataTables\css\select.foundation.css" />
+    <Content Include="Content\DataTables\css\select.foundation.min.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.css" />
+    <Content Include="Content\DataTables\css\select.jqueryui.min.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.css" />
+    <Content Include="Content\DataTables\css\select.semanticui.min.css" />
+    <Content Include="Content\DataTables\images\details_close.png" />
+    <Content Include="Content\DataTables\images\details_open.png" />
+    <Content Include="Content\DataTables\images\sort_asc.png" />
+    <Content Include="Content\DataTables\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\images\sort_both.png" />
+    <Content Include="Content\DataTables\images\sort_desc.png" />
+    <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Providers\TerraTechPH.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\DataTables\css\semanticui.scss" />
+    <Content Include="Content\DataTables\css\mixins.scss" />
+    <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="DummyLayout.cshtml" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\autoFill.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.js" />
+    <Content Include="Scripts\DataTables\autoFill.foundation.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.js" />
+    <Content Include="Scripts\DataTables\autoFill.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.js" />
+    <Content Include="Scripts\DataTables\autoFill.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\buttons.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.js" />
+    <Content Include="Scripts\DataTables\buttons.colVis.min.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.js" />
+    <Content Include="Scripts\DataTables\buttons.flash.min.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.js" />
+    <Content Include="Scripts\DataTables\buttons.foundation.min.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.js" />
+    <Content Include="Scripts\DataTables\buttons.html5.min.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.js" />
+    <Content Include="Scripts\DataTables\buttons.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\buttons.print.js" />
+    <Content Include="Scripts\DataTables\buttons.print.min.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.js" />
+    <Content Include="Scripts\DataTables\buttons.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.js" />
+    <Content Include="Scripts\DataTables\dataTables.autoFill.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.js" />
+    <Content Include="Scripts\DataTables\dataTables.buttons.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedColumns.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.js" />
+    <Content Include="Scripts\DataTables\dataTables.fixedHeader.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.js" />
+    <Content Include="Scripts\DataTables\dataTables.foundation.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.js" />
+    <Content Include="Scripts\DataTables\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.js" />
+    <Content Include="Scripts\DataTables\dataTables.keyTable.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.js" />
+    <Content Include="Scripts\DataTables\dataTables.material.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.js" />
+    <Content Include="Scripts\DataTables\dataTables.responsive.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowGroup.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.js" />
+    <Content Include="Scripts\DataTables\dataTables.rowReorder.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.js" />
+    <Content Include="Scripts\DataTables\dataTables.scroller.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.js" />
+    <Content Include="Scripts\DataTables\dataTables.select.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.js" />
+    <Content Include="Scripts\DataTables\dataTables.semanticui.min.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.js" />
+    <Content Include="Scripts\DataTables\dataTables.uikit.min.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap.min.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.js" />
+    <Content Include="Scripts\DataTables\responsive.bootstrap4.min.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.js" />
+    <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
+    <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.js" />
+    <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\dx.viz.debug.js" />
+    <Content Include="Scripts\dx.viz.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\vectormap-data\africa.js" />
+    <Content Include="Scripts\vectormap-data\canada.js" />
+    <Content Include="Scripts\vectormap-data\eurasia.js" />
+    <Content Include="Scripts\vectormap-data\europe.js" />
+    <Content Include="Scripts\vectormap-data\usa.js" />
+    <Content Include="Scripts\vectormap-data\world.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.debug.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.js" />
+    <Content Include="Scripts\vectormap-utils\dx.vectormaputils.node.js" />
+    <Content Include="TerraMaster\css\master-custom.css" />
+    <Content Include="TerraMaster\css\style-custom.css" />
+    <Content Include="TerraMaster\css\style-responsive.css" />
+    <Content Include="TerraMaster\css\style.css" />
+    <Content Include="TerraMaster\images\dark\icon-search%402x.png" />
+    <Content Include="TerraMaster\images\dark\icon-search.png" />
+    <Content Include="TerraMaster\images\dark\now-loading.gif" />
+    <Content Include="TerraMaster\images\dark\quote%402x.png" />
+    <Content Include="TerraMaster\images\dark\quote-small.png" />
+    <Content Include="TerraMaster\images\dark\quote.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\digg.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\facebook.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\google-plus.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\linkedin.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\my-space.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\pinterest.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\reddit.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\stumble-upon.png" />
+    <Content Include="TerraMaster\images\dark\social-icon\twitter.png" />
+    <Content Include="TerraMaster\images\image-hover-gradient.png" />
+    <Content Include="TerraMaster\images\light\icon-search%402x.png" />
+    <Content Include="TerraMaster\images\light\icon-search.png" />
+    <Content Include="TerraMaster\images\light\price-tag-shadow.png" />
+    <Content Include="TerraMaster\images\logo.png" />
+    <Content Include="TerraMaster\images\master-slider-left.png" />
+    <Content Include="TerraMaster\images\master-slider-right.png" />
+    <Content Include="TerraMaster\images\page-title-background.jpg" />
+    <Content Include="TerraMaster\images\paypal.png" />
+    <Content Include="TerraMaster\images\port-loader.gif" />
+    <Content Include="TerraMaster\images\single-port-close.png" />
+    <Content Include="TerraMaster\images\stripe.png" />
+    <Content Include="TerraMaster\js\hoverIntent.min.js" />
+    <Content Include="TerraMaster\js\isotope.js" />
+    <Content Include="TerraMaster\js\jquery\jquery-migrate.min.js" />
+    <Content Include="TerraMaster\js\jquery\jquery.js" />
+    <Content Include="TerraMaster\js\plugins.js" />
+    <Content Include="TerraMaster\plugins\dl-menu\component.css" />
+    <Content Include="TerraMaster\plugins\dl-menu\jquery.dlmenu.js" />
+    <Content Include="TerraMaster\plugins\dl-menu\modernizr.custom.js" />
+    <Content Include="TerraMaster\plugins\elegant-font\fonts\ElegantIcons.svg" />
+    <Content Include="TerraMaster\plugins\elegant-font\style.css" />
+    <Content Include="TerraMaster\plugins\fancybox\blank.gif" />
+    <Content Include="TerraMaster\plugins\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="TerraMaster\plugins\fancybox\fancybox_loading.gif" />
+    <Content Include="TerraMaster\plugins\fancybox\fancybox_overlay.png" />
+    <Content Include="TerraMaster\plugins\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="TerraMaster\plugins\fancybox\fancybox_sprite.png" />
+    <Content Include="TerraMaster\plugins\fancybox\helpers\jquery.fancybox-media.js" />
+    <Content Include="TerraMaster\plugins\fancybox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="TerraMaster\plugins\fancybox\jquery.fancybox.css" />
+    <Content Include="TerraMaster\plugins\fancybox\jquery.fancybox.pack.js" />
+    <Content Include="TerraMaster\plugins\flexslider\flexslider.css" />
+    <Content Include="TerraMaster\plugins\flexslider\jquery.flexslider.js" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\css\font-awesome.min.css" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfont93e393e3.svg" />
+    <Content Include="TerraMaster\plugins\gdlr-portfolio\gdlr-portfolio-script.js" />
+    <Content Include="TerraMaster\plugins\jquery.easing.js" />
+    <Content Include="TerraMaster\plugins\jquery.isotope.min.js" />
+    <Content Include="TerraMaster\plugins\jquery.transit.min.js" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\blank.gif" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grab.html" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grab.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grabbing.html" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grabbing.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\loading-2.gif" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\video-close-btn.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\masterslider.main.css" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\black-skin-1-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\black-skin-1.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\black-skin-2-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\black-skin-2.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\contrast-skin-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\contrast-skin.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-1-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-1.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-2-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-2.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-3-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-3.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-4-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-4.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-5-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-5.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-6-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\light-skin-6.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\metro-skin-retina.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\metro-skin.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\skins\minimal.svg" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\templates\device-skin.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\templates\gallery-btns.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\templates\staff-arrows.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\templates\vertical-arrows.png" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\js\masterslider.min.js" />
+    <Content Include="TerraMaster\plugins\quform\js\plugins.js" />
+    <Content Include="TerraMaster\plugins\quform\js\scripts.js" />
+    <Content Include="TerraMaster\plugins\superfish\css\superfish.css" />
+    <Content Include="TerraMaster\plugins\superfish\js\superfish.js" />
+    <Content Include="TerraMaster\upload\about-title-bg.jpg" />
+    <Content Include="TerraMaster\upload\act-bg.jpg" />
+    <Content Include="TerraMaster\upload\big-icon.png" />
+    <Content Include="TerraMaster\upload\column-service-1.jpg" />
+    <Content Include="TerraMaster\upload\column-service-2.jpg" />
+    <Content Include="TerraMaster\upload\column-service-3.jpg" />
+    <Content Include="TerraMaster\upload\donation-bg-1.jpg" />
+    <Content Include="TerraMaster\upload\donation-bg-2.jpg" />
+    <Content Include="TerraMaster\upload\donation-bg.jpg" />
+    <Content Include="TerraMaster\upload\icon-1.png" />
+    <Content Include="TerraMaster\upload\icon-2-1.png" />
+    <Content Include="TerraMaster\upload\icon-2-2.png" />
+    <Content Include="TerraMaster\upload\icon-2-3.png" />
+    <Content Include="TerraMaster\upload\icon-2-4.png" />
+    <Content Include="TerraMaster\upload\icon-2-5.png" />
+    <Content Include="TerraMaster\upload\icon-2-6.png" />
+    <Content Include="TerraMaster\upload\icon-2.png" />
+    <Content Include="TerraMaster\upload\icon-3.png" />
+    <Content Include="TerraMaster\upload\icon-4.png" />
+    <Content Include="TerraMaster\upload\icon-5.png" />
+    <Content Include="TerraMaster\upload\icon-6.png" />
+    <Content Include="TerraMaster\upload\icon-7.png" />
+    <Content Include="TerraMaster\upload\icon-service-1.png" />
+    <Content Include="TerraMaster\upload\icon-service-2.png" />
+    <Content Include="TerraMaster\upload\icon-service-3.png" />
+    <Content Include="TerraMaster\upload\left.jpg" />
+    <Content Include="TerraMaster\upload\logo-light.png" />
+    <Content Include="TerraMaster\upload\newsletter-bg.jpg" />
+    <Content Include="TerraMaster\upload\personnel-1.jpg" />
+    <Content Include="TerraMaster\upload\personnel-2.jpg" />
+    <Content Include="TerraMaster\upload\personnel-3.jpg" />
+    <Content Include="TerraMaster\upload\Project1 540 x 356.jpg" />
+    <Content Include="TerraMaster\upload\Project1.jpg" />
+    <Content Include="TerraMaster\upload\Project2 540 x 356.jpg" />
+    <Content Include="TerraMaster\upload\Project2.jpg" />
+    <Content Include="TerraMaster\upload\Project3 540 x 356.jpg" />
+    <Content Include="TerraMaster\upload\Project3.jpg" />
+    <Content Include="TerraMaster\upload\Project4 540 x 356.jpg" />
+    <Content Include="TerraMaster\upload\Project4.jpg" />
+    <Content Include="TerraMaster\upload\service-bg-2.jpg" />
+    <Content Include="TerraMaster\upload\service-bg.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_104475683.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_110700254-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_110700254-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_110700254-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_110700254.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-1024x1024.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-540x326.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620-700x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_124871620.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-540x326.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_133689230.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_146211665-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_146211665-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_146211665-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_146211665.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_147266159-1024x605.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_147266159-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_147266159-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_147266159.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_154639625-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_154639625-700x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_154639625.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241-1024x683.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241-540x326.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_161515241.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_170752253-1024x680.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_170752253-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_170752253-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_170752253-400x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_170752253.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_178430033-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_178430033-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_181393724-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256046590-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256046590-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256046590.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256181956-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256181956-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256181956-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256181956-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_256181956.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_257121994.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_278672942-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_278672942-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_278672942-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_278672942-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_281995004-1024x818.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_281995004-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_281995004-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_281995004-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_294481373-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_49617541-1024x680.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_49617541-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_49617541-400x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_49617541-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_49617541.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-150x150.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-440x550.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-540x326.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221-700x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_53600221.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_70658833-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_70658833-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_70658833-400x400.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_70658833-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_70658833.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_84645355-1024x682.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_84645355-400x300.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_84645355-750x330.jpg" />
+    <Content Include="TerraMaster\upload\shutterstock_84645355.jpg" />
+    <Content Include="TerraMaster\upload\slider-1.jpg" />
+    <Content Include="TerraMaster\upload\slider-2.jpg" />
+    <Content Include="TerraMaster\upload\slider-3 - Copy.jpg" />
+    <Content Include="TerraMaster\upload\slider-3.jpg" />
+    <Content Include="TerraMaster\upload\slider-4.jpg" />
+    <Content Include="TerraMaster\upload\slider-5.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-1-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-13-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-2-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-23-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-3-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-33-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-43-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-53-150x150.jpg" />
+    <Content Include="TerraMaster\upload\testimonial-63-150x150.jpg" />
+    <Content Include="TerraMaster\upload\wm_sticks_and_chains.mp3" />
+    <Content Include="TerraMaster\upload\wm_sticks_and_chains230a.mp3" />
+    <Content Include="TerraTech\TerraScripts\TerraTechScript.js" />
+    <Content Include="TerraMaster\plugins\elegant-font\fonts\ElegantIcons.eot" />
+    <Content Include="TerraMaster\plugins\elegant-font\fonts\ElegantIcons.ttf" />
+    <Content Include="TerraMaster\plugins\elegant-font\fonts\ElegantIcons.woff" />
+    <Content Include="TerraMaster\plugins\elegant-font\fonts\ElegantIconsd41dd41d.eot" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfont93e393e3.eot" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfont93e393e3.ttf" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfont93e393e3.woff" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfont93e393e3.woff2" />
+    <Content Include="TerraMaster\plugins\font-awesome-new\fonts\fontawesome-webfontd41dd41d.eot" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grab.html.readme" />
+    <Content Include="TerraMaster\plugins\masterslider\public\assets\css\common\grabbing.html.readme" />
+    <Content Include="TerraTech\TerraShared\AdministratorDashboard.cshtml" />
+    <None Include="TerraTech\TerraShared\Administrator.cshtml" />
+    <None Include="TerraTech\TerraShared\CommunityUser.cshtml" />
+    <Content Include="TerraTech\TerraStyles\TerraTechDashboard.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DataDeleteController.cs" />
+    <Compile Include="Controllers\DataGenerateController.cs" />
+    <Compile Include="Controllers\DataGetController.cs" />
+    <Compile Include="Controllers\DataInsertController.cs" />
+    <Compile Include="Controllers\DataUpdateController.cs" />
+    <Compile Include="Controllers\EntitiesController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GeneralController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="LabelStruct.cs" />
+    <Compile Include="Others\DataAccess.cs" />
+    <Compile Include="Providers\DataProvider.cs" />
+    <Compile Include="Others\DefaultData.cs" />
+    <Compile Include="Models\GeneralModel.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Providers\IDataProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Others\StoredProcedure.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\General\Dummy.cshtml" />
+    <Content Include="Views\DataGet\BarChart.cshtml" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Views\General\DummyInsert.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Entities\SubmitReport.cshtml" />
+    <Content Include="Views\Entities\CommunityUser.cshtml" />
+    <Content Include="Views\Entities\Administrator.cshtml" />
+    <Content Include="Views\Entities\Accounts.cshtml" />
+    <Content Include="Views\Entities\Leaderboard.cshtml" />
+    <Content Include="Views\Entities\MonthlyReports.cshtml" />
+    <Content Include="Views\Entities\YearlyReports.cshtml" />
+    <Content Include="Views\Entities\Twitter.cshtml" />
+    <Content Include="Views\Entities\Submitted.cshtml" />
+    <Content Include="Views\Entities\Accepted.cshtml" />
+    <Content Include="Views\Entities\Rejected.cshtml" />
+    <Content Include="Views\Entities\InProgress.cshtml" />
+    <Content Include="Views\Entities\Completed.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Entities\ViewStatus.cshtml" />
+    <Content Include="Views\Entities\Achievements.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\DataDelete\" />
+    <Folder Include="Views\DataGenerate\" />
+    <Folder Include="Views\DataInsert\" />
+    <Folder Include="Views\DataUpdate\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51237</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44314/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

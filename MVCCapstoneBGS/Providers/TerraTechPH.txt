@@ -1,0 +1,20 @@
+API KEY:
+
+N5rwRYcClshCYS0qW0qsySmvx
+
+API KEY SECRET:
+57ywSvpsf0jLvdYQIaJLQJYveufqDI4QqmFoGLcl56UbeRHsvq
+
+BEARER TOKEN:
+AAAAAAAAAAAAAAAAAAAAAJdKEQEAAAAAvOzqvOilST2khORGrEvJDLy2Oe4%3Do6Zk4af5srluFcv5Tw6vQjjZC8rmFDFA26nAtCnvwwGzdXezYq
+
+ACCESS TOEKN:
+1258097237348896769-AL5rIiYea1qvhRS2PDzUZvrc0CoNAz
+
+ACCESS TOKEN SECRET:
+eg93G03bbzry7BrFT29Qqe6f8mNe7dbnJ4lvD3cOmKAuk
+
+
+GARCIA NOTE:
+This document is only available to the members of Group BGS, please do not share this document to other people since it might affect the procedures of the system.
+

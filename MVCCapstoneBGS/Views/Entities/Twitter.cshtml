@@ -1,0 +1,358 @@
+﻿
+@{
+    Layout = "~/TerraTech/TerraShared/AdministratorDashboard.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .tweet-box {
+            font-size: 18px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .tweet-input {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 18px;
+            padding: 15px 12px;
+            outline: none;
+            width: 100%;
+        }
+
+        span {
+            float: right;
+            padding: 18px 14px;
+        }
+
+        .warning {
+            color: #a76c00;
+        }
+
+        .danger {
+            color: #800000;
+        }
+
+        button {
+            background-color: #008cff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            color: #fefefe;
+            font-size: 18px;
+            float: right;
+            margin-top: 10px;
+            padding: 10px 25px;
+        }
+
+            button:hover {
+                background-color: #1da1f2;
+            }
+
+            button.active {
+                background-color: #008cff;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="">Administrator</a></li>
+        <li class="breadcrumb-item"><a href="">Records</a></li>
+        <li class="breadcrumb-item active">Twitter</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            Let other people know about the status of reports! at
+            <a target="_blank" href="https://www.Twitter.com/TerraTechPH/" style="font-style:italic">&#64;TerraTechPH</a>
+        </div>
+    </div>
+
+    <div class="card-header tab-card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link" id="one-tab" data-toggle="tab" href="#one" role="tab" aria-controls="One" aria-selected="true">Tweet Completed</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="two-tab" data-toggle="tab" href="#two" role="tab" aria-controls="Two" aria-selected="false">Tweet Updates</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="three-tab" data-toggle="tab" href="#three" role="tab" aria-controls="Three" aria-selected="false">Area Update</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade p-3 " id="one" role="tabpanel" aria-labelledby="one-tab" aria-selected="false">
+            <table id="CaseReportTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; overflow:auto; word-break:break-all;"></table>
+            @*   <table id="CaseReportTable" class="table table-hover table-striped table-bordered table-responsive" cellspacing="0" style="width:100%; overflow:auto; word-break:break-all;"></table>
+                **@
+
+        </div>
+        <div class="tab-pane fade p-3" id="two" role="tabpanel" aria-labelledby="two-tab">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-arrow-right mr-1"></i>
+                            Tweet Concerns!
+                        </div>
+
+                        <div class="card-body">
+                            <textarea class="tweet-input tbTweetReport" rows="7" name="message" disabled="disabled">@ViewBag.UpdateStatus</textarea>
+                            <div> <button class="btnTweetR">Tweet</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-arrow-right mr-1"></i>
+                            Post a Tweet!
+                        </div>
+                        <div class="card-body">
+                            <textarea class="tweet-input tbTweetPost" rows="7" name="message"></textarea>
+
+                            <div> <button class="btnTweetP">Tweet</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade p-3" id="three" role="tabpanel" aria-labelledby="three-tab">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-arrow-right mr-1"></i>
+                            Tweet Concerns!
+                        </div>
+
+                        <div class="card-body">
+                            <textarea class="tweet-input tbTweetArea" rows="7" name="message" disabled="disabled">@ViewBag.AreaTweet</textarea>
+                            <div> <button class="btnTweetA">Tweet</button></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+
+
+    
+
+
+
+
+
+
+
+</body>
+@*
+    <input class="file" id="file" type="file" accepts="image/*" />
+        <label for="file"></label><br />
+     <input type="file" id="file-id" name="file_name" onchange="theimage();">
+    <input type="text" name="file_path" id="file-path">
+        <img id="preview" width="100" height="150" />
+*@
+</html>
+
+
+<script>
+
+    LoadCaseReport();
+
+    function LoadCaseReport() {
+        table = $('#CaseReportTable').DataTable({
+            pageLength: 5,
+            bLengthChange: false,
+            responsive: true,
+            destroy: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCurrentCompletedReports?UpdatedStatusID=5",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "Tweet",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit' style='color: white'><i class = 'fa fa-1x fa-dove'></i> Tweet!</a>";
+                        return edit;
+                    },
+                    width: "80px"
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Environmental Concern ID",
+                    data: "EnvironmentalConcernID",
+                    visible: false
+
+                },
+                {
+                    title: "Full Name",
+                    data: "FullName",
+                     visible: false
+                },
+                {
+                    title: "DateReported",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+                {
+                    title: "Update",
+                    data: "UpdatedStatus",
+                    visible: false
+                },
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Coordinates",
+                    data: "Coordinates"
+                },
+                {
+                    title: "Notes",
+                    data: "Notes",
+                    visible: false
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+        return table;
+    };
+
+    $(document).on("click", ".btnTweetP", function () {
+        var message = $(".tbTweetPost").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("TweetSomething", "DataGenerate")',
+            dataType: 'html',
+            data: ({
+                //insert your parameters to pass to controller
+                message: message
+            }),
+            success: function () {
+                Swal.fire({
+                 
+                    title: 'Tweet Posted',
+                    text: 'View your tweet at TerraTechPH!',
+                    footer: '<a>Powered by TerraTech</a>'
+                })
+                $('.tbTweetPost').val('');
+            }
+        });
+
+    });
+
+    $(document).on("click", ".btnTweetR", function () {
+        var message = $(".tbTweetReport").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("TweetSomething", "DataGenerate")',
+            dataType: 'html',
+            data: ({
+                //insert your parameters to pass to controller
+                message: message
+            }),
+            success: function () {
+                Swal.fire({
+                   
+                    title: 'Tweet Posted',
+                    text: 'View your tweet at TerraTechPH!',
+                    footer: '<a>Powered by TerraTech</a>'
+                })
+
+
+            }
+        });
+
+    });
+
+    $(document).on("click", ".btnTweetA", function () {
+        var message = $(".tbTweetArea").val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("TweetSomething", "DataGenerate")',
+            dataType: 'html',
+            data: ({
+                message: message
+            }),
+            success: function () {
+                Swal.fire({
+                   
+                    title: 'Tweet Posted',
+                    text: 'View your tweet at TerraTechPH!',
+                    footer: '<a>Powered by TerraTech</a>'
+                })
+
+
+            }
+        });
+
+    });
+
+    $("input[type=file]").on("change", function () {
+        $("[for=file]").html(this.files[0].name);
+        $("#preview").attr("src", URL.createObjectURL(this.files[0]));
+        ABC();
+    });
+
+</script>

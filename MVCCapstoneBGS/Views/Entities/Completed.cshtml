@@ -1,0 +1,200 @@
+﻿
+@{
+    Layout = @ViewBag.VBLayout;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="">Administrator</a></li>
+        <li class="breadcrumb-item"><a href="">Management</a></li>
+        <li class="breadcrumb-item"><a href="">Concerns</a></li>
+        <li class="breadcrumb-item active">Completed</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            Let other people know about the status of reports! at
+            <a target="_blank" href="https://www.Twitter.com/TerraTechPH/" style="font-style:italic">&#64;TerraTechPH</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar mr-1"></i>
+                    Monthly Status
+                </div>
+                <div class="card-body"><canvas id="myBarChart" width="100" height="50"></canvas></div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Land and Water Concerns
+                </div>
+                <div class="card-body"><canvas id="myPieChart" width="100" height="50"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            Recent Concerns
+        </div>
+
+        <div class="card-body">
+            <table id="CompletedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+        </div>
+
+        <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+    </div>
+
+</body>
+</html>
+
+
+<script>
+    LoadCompletedTable();
+
+    function LoadCompletedTable() {
+        table = $('#CompletedTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCurrentCaseReport?UpdatedStatusID=5",
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'Notes': c.Notes
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "Manage",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+                    width: "80px"
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Coordinates",
+                    data: "Coordinates"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    var BAR = document.getElementById("myBarChart");
+    var myBarChart = new Chart(BAR, {
+        type: 'bar',
+        data: {
+            labels: [@Html.Raw(ViewBag.ECName)],
+            datasets: [{
+                data: [@ViewBag.ECCount],
+                backgroundColor: ['#C65911', '#11AAF7', '#548235', '#1D07A1', '#CC0000', '#C004B7', '#F9FF0D', '#F68A92', '#909090', '#724173', '#05FF2F', '#4FA2B5', '#795A21', '#B37D09'],
+
+            }],
+        },
+        options: {
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0
+                    }
+                }]
+            }
+        }
+    });
+
+    var PIE = document.getElementById("myPieChart");
+    var myPieChart = new Chart(PIE, {
+        type: 'pie',
+        data: {
+            labels: [@Html.Raw(ViewBag.SStatus)],
+            datasets: [{
+                data: [@ViewBag.SCount],
+                backgroundColor: [getRandomColor(), getRandomColor()],
+                //['#00FFFF', '#32CD32']
+            }],
+        },
+    });
+
+</script>
+

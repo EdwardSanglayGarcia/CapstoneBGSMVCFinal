@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "DummyInsert";
+    Layout = "~/DummyLayout.cshtml";
+}
+
+<h2>DummyInsert</h2>
+
+<body>
+    <button class="AddButton">Add Customer</button>
+
+    <!--MODAL ADD-->
+    <div class="modal fade" id="myModalAdd" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Community User: Registration</h3>
+                </div>
+                <div class="modal-body">
+                    <fieldset id="EditSection">
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Username</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="text" class="tbUsernameINS" id="tbUsernameINS" placeholder="Enter Username" />
+                        </div>
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Password</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="password" class="tbPasswordINS" id="tbPasswordINS" placeholder="Enter Password" />
+                        </div>
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Email Address</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="text" class="tbEmailAddressINS" id="tbEmailAddressINS" placeholder="AB@gov.ph" />
+                        </div>
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Given Name</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="text" class="tbGivenNameINS" id="tbGivenNameINS" placeholder="Andres" />
+                        </div>
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Maiden Name</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="text" class="tbMaidenNameINS" id="tbMaidenNameINS" placeholder="De Castro" />
+                        </div>
+
+                        <div class="control-label col-xs-12 col-sm-4">
+                            <label class="asteriskRequired">Family Name</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-8">
+                            <input type="text" class="tbFamilyNameINS" id="tbFamilyNameINS" placeholder="Bonifacio" />
+                        </div>
+
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="btnRegisterINS" value="Insert" class="btn btn-primary btn-md btnRegisterINS" />
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+
+
+</body>
+
+<script>
+
+    $(document).on("click", ".AddButton", function () {
+        $('#myModalAdd').modal('show');
+    });
+
+    $(document).on("click", ".btnRegisterINS", function () {
+        //var CompanyName = $('.tbCompanyNameINS').val();
+        //var NoOfDays = $('.tbDaysINS').val();
+
+        var Username = $('.tbUsernameINS').val();
+        var Password = $('.tbPasswordINS').val();
+        var Email = $('.tbEmailAddressINS').val();
+        var GivenName = $('.tbGivenNameINS').val();
+        var MaidenName = $('.tbMaidenNameINS').val();
+        var FamilyName = $('.tbFamilyNameINS').val();
+
+        //window.alert(Username + ' ' + Password + ' ' + Email + ' ' + GivenName + ' ' + MaidenName + ' ' + FamilyName);
+
+        //swal({
+        //    title: "<h3>Are you sure</h3>",
+        //    text: "Do you want to Tag this student as Enrolled?",
+        //    type: 'question',
+        //    width: '20rem',
+        //    position: 'top',
+        //    allowOutsideClick: false,
+        //    allowEscapeKey: false,
+        //    showCancelButton: true,
+        //    confirmButtonText: 'Confirm',
+        //    confirmButtonClass: 'btn btn-primary',
+        //    cancelButtonClass: 'btn btn-danger',
+        //    buttonsStyling: false,
+        //    padding: 0,
+        //    imageWidth: 60,
+        //    imageHeight: 60
+        //}).then((result) => {
+        //    if (result.value) {
+        //        window.onbeforeunload = justLoad();
+        //        $.ajax({
+        //            type: "GET",
+        //            "url": "/DataInsert/CreateCommunityUser",
+        //            dataType: "json",
+        //            async: false,
+        //            data:
+        //            {
+        //                UserName: Username,
+        //                Password: Password,
+        //                Email: Email,
+        //                GivenName: GivenName,
+        //                MaidenName: MaidenName,
+        //                FamilyName: FamilyName
+        //            },
+        //            success: function (data) {
+        //                if (data == "Saved") {
+        //                    //showToaster("success", "Student Successfully Tagged As Enrolled!")
+        //                    window.alert("sakses");
+        //                }
+        //                else {
+        //                    // showToaster("error", "Error while saving the data.")
+        //                    window.alert("eror");
+        //                }
+        //                unLoad()
+        //            },
+        //            error: function (xhr, status, exception) {
+        //                console.log("Error: " + exception + ", Status: " + status);
+        //            }
+        //        })
+        //    }
+        //    else {
+        //        return false;
+        //    }
+        //});
+
+        $.ajax({
+            type: "GET",
+            "url": "/DataInsert/CreateCommunityUser",
+            dataType: "json",
+            async: false,
+            data:
+            {
+                UserName: Username,
+                Password: Password,
+                Email: Email,
+                GivenName: GivenName,
+                MaidenName: MaidenName,
+                FamilyName: FamilyName
+            },
+            success:
+                swal("Successfully Registered!", {
+                    icon: "success",
+                }),
+            error: function (xhr, status, exception)
+            {
+                swal("Error!" + status + " " + exception + " " + xhr, {
+                    icon: "error",
+                })
+            }
+
+        });
+        //$('#myModalAdd').modal('hide');
+        //swal("Successfully Deleted!", {
+        //    icon: "success",
+        //});
+    });
+
+</script>
