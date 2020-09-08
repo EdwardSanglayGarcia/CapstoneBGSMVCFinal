@@ -52,7 +52,7 @@ namespace MVCCapstoneBGS.Controllers
         public void TweetSomething(string message)
         {
             string image;
-            image = @"C:\Users\pc\Desktop\Capstone Codes\Web Application\MVCCapstoneBGS\TerraMaster\upload\shutterstock_124871620.jpg";
+            image = @"C:\Users\pc\Desktop\Capstone Codes\Final Web Application\MVCCapstoneBGS\TerraMaster\upload\shutterstock_124871620.jpg";
 
             DefaultData cmd = new DefaultData();
 

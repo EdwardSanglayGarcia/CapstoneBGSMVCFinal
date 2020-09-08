@@ -67,17 +67,59 @@
             <!-- Modal content-->
             <div class="modal-content" id="modalwindow">
                 <div class="modal-header">
-                    <h3 class="modal-title Title">Update : Submitted Status</h3>
+                    <h3 class="modal-title Title">Update Status: Submitted</h3>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
 
-                    <div class="modal-body mx-3">
+                        <div class="col-md-7">
+                            <div class="row-1" style="border:double; margin-bottom:10px; height:250px;">
+                                <img src="https://i.ytimg.com/vi/1jPeMx0mJeU/hqdefault.jpg" style="width:100%; height:250px" />
+
+                            </div>
+
+                            <div id="mapid" class="row-1" style="border:double; margin-bottom:10px; height: 250px;">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseReportNo" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Report No.</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseLocation" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Location</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbConcern" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Concern</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateReported" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Reported</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateUpdated" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Updated</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="email" id="tbReporter" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Reported by</label>
+                            </div>
+
+
+                        </div>
+
 
                     </div>
 
+                </div>
+
                 <div class="modal-footer">
+                    <p>Powered by TerraTechPH</p>
                     <button type="button" id="btnAccept" class="btn btn-success btnAccept" data-dismiss="modal">Accept</button>
-                    <button type="button" id ="btnReject" class="btn btn-warning btnReject" data-dismiss="modal">Reject</button>
+                    <button type="button" id="btnReject" class="btn btn-warning btnReject" data-dismiss="modal">Reject</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal" title="Close">Close</button>
                 </div>
             </div>
@@ -90,13 +132,36 @@
 </html>
 
 
+
+
+
 <script>
+
+    var map = L.map('mapid');
+    var CaseReportID;
 
     $(document).ready(function () {
         LoadSubmittedTable();
     });
 
-    var CaseReportID;
+
+    $('.leaflet-control-attribution').hide();
+
+    $('#myModalUpdate').on('shown.bs.modal', function () {
+        $('#myModalUpdate').modal('show');
+      
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 10);
+    });
+
+    function ConvertToDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    };
 
     function LoadSubmittedTable() {
         table = $('#SubmittedTable').DataTable({
@@ -127,6 +192,7 @@
                             'XCoordinates': c.XCoordinates,
                             'YCoordinates': c.YCoordinates,
                             'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
                             'Notes': c.Notes
                         });
                     }
@@ -159,14 +225,28 @@
                         return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
                     }
                 },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
 
                 {
                     title: "Area",
                     data: "CaseLocation"
                 },
                 {
-                    title: "Coordinates",
-                    data: "Coordinates"
+                    title: "Concern",
+                    data: "Concern"
                 },
 
             ],
@@ -178,7 +258,6 @@
 
         return table;
     };
-
 
     var BAR = document.getElementById("myBarChart");
     var myBarChart = new Chart(BAR, {
@@ -224,6 +303,41 @@
         var data = table.row($(this).parents('tr')).data();
         var PARAM_CaseReportID = data["CaseReportID"];
         CaseReportID = PARAM_CaseReportID;
+
+        var locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />"+
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"]+"]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+        var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+        var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+        var maxBounds = [
+            [21.116625, 131.175528],
+            [4.991861, 115.976455]
+        ];
+
+        L.tileLayer(b).addTo(map);
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 8);
+        for (var i = 0; i < locations.length; i++) {
+            marker = new L.marker([locations[i][1], locations[i][2]])
+                .bindPopup(locations[i][0])
+                .addTo(map);
+        }
+        map.setMaxBounds(maxBounds);
+
+        document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) +"]";
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbReporter").value = data["FamilyName"]; 
     });
 
     $(document).on("click", ".btnAccept", function () {
@@ -244,7 +358,7 @@
                     dataType: "json",
                     async: false,
                     data: {
-                        CaseReportID: CaseReportID,                     
+                        CaseReportID: CaseReportID,
                     }
                 });
 
