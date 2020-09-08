@@ -53,12 +53,6 @@ namespace MVCCapstoneBGS.Controllers
         {
             string image;
             image = @"C:\Users\pc\Desktop\Capstone Codes\Web Application\MVCCapstoneBGS\TerraMaster\upload\shutterstock_124871620.jpg";
-            //int imageID=0;
-            //List<string> imageList = new List<string>();
-            //imageList.Add(@"C:\Users\pc\Desktop\Anime\Victorique.png");
-            //imageList.Add(@"C:\Users\pc\Desktop\Anime\Shidou.png");
-
-            //string IMAGE = @"C:\Users\pc\Desktop\Anime\Shidou.png";
 
             DefaultData cmd = new DefaultData();
 
