@@ -349,6 +349,7 @@ namespace MVCCapstoneBGS.Controllers
                 Select(
                 mmm => "["
                 +quote
+             //   + "<center><img src='https://i.ytimg.com/vi/EXtNpsj1-0w/hqdefault.jpg' style='width:150px; height:100px;'></center>"
                 +"Case No: "+mmm.CaseReportID
                 +"<br />Reported on: "+mmm.DateReported
                 +"<br />Updated on: "+mmm.UpdatedStatusDate

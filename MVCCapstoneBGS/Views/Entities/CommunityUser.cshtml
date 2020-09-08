@@ -123,7 +123,7 @@
         map.fitBounds(maxBounds);
 
         for (var i = 0; i < locations.length; i++) {
-            marker = new L.marker([locations[i][1], locations[i][2]])
+            marker =  new L.marker([locations[i][1], locations[i][2]])
                 .bindPopup(locations[i][0])
                 .addTo(map);
         }
@@ -179,6 +179,7 @@
 
 
 </script>
+
 
 
 @*

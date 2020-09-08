@@ -183,7 +183,28 @@
 
     $(document).ready(function () {
         LoadVolunteer();
+        //LoadMyTrial();
     });
+
+
+    //function LoadMyTrial() {
+    //    //debugger;
+    //    $.ajax({
+    //        type: "GET",
+    //        "url": "/DataGet/GetVolunteer",
+           
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: "json",
+    //        success: function (result) {
+    //            alert(JSON.stringify(result));
+
+    //        },
+    //        error: function (response) {
+    //          //  debugger;
+    //            alert('eror');
+    //        }
+    //    });
+    //}
 
     function LoadVolunteer() {
         table = $('#VolunteerTable').DataTable({

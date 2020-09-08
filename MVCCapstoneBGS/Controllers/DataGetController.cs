@@ -87,7 +87,7 @@ namespace MVCCapstoneBGS.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetVolunteer()
+        public JsonResult GetVolunteer()
         {
             var data = _IDataProvider.GetVolunteer();
             return Json(data, JsonRequestBehavior.AllowGet);
