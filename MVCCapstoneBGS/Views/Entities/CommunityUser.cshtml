@@ -81,14 +81,15 @@
 
 
         <div class="card-body">
-            <select name="UpdatedStatusDDL" class="btn btn-dark UpdatedStatusDDL">- Please Select -</select>
 
-            <div class="control-label col-xs-12 col-sm-4">
-                <label class="asteriskRequired"></label>
+                <select name="UpdatedStatusDDL" class="btn btn-dark UpdatedStatusDDL">- Please Select -</select>
+
+                <div class="control-label col-xs-12 col-sm-4">
+                    <label class="asteriskRequired"></label>
+                </div>
+
+                <div style="padding-top:25px; height:500px" id='map'></div>
             </div>
-
-            <div style="padding-top:25px; height:500px" id='map'></div>
-        </div>
 
         <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
     </div>
@@ -117,7 +118,7 @@
             [4.991861, 115.976455]
         ];
 
-        L.tileLayer(b).addTo(map);
+        L.tileLayer(a).addTo(map);
         map.setView([11.206051, 122.447886], 8);
         map.setMaxBounds(maxBounds);
         map.fitBounds(maxBounds);
@@ -129,6 +130,7 @@
         }
         $('.leaflet-control-attribution').hide();
     }
+
 
 
 
@@ -148,7 +150,7 @@
         })
     };
 
-    
+
 
     $(document).on("change", ".UpdatedStatusDDL", function () {
 

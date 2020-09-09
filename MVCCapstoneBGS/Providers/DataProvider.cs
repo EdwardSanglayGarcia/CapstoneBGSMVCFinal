@@ -440,6 +440,37 @@ namespace MVCCapstoneBGS
             }
             return result;
         }
+
+        public List<CaseReport> UpdateCaseReport_Submitted(int CaseReportID)
+        {
+            var result = new List<CaseReport>();
+            using (IDbConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                var param = new DynamicParameters();
+                param.Add("@CaseReportID", CaseReportID);
+
+                result = con.Query<CaseReport>(
+                    StoredProcedureEnum.U_CaseReport_S.ToString(), param, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return result;
+        }
+
+        public List<CaseReport> UpdateCaseReport_FinalizeRejected(int CaseReportID, string Notes)
+        {
+            var result = new List<CaseReport>();
+            using (IDbConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                var param = new DynamicParameters();
+                param.Add("@CaseReportID", CaseReportID);
+                param.Add("@Notes", Notes);
+
+                result = con.Query<CaseReport>(
+                    StoredProcedureEnum.U_CaseReport_Finalize_R.ToString(), param, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return result;
+        }
         #endregion
 
         #region CHARTS_And_GRAPHS

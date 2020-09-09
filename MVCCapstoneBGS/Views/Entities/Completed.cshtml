@@ -17,6 +17,7 @@
         <li class="breadcrumb-item"><a href="">Concerns</a></li>
         <li class="breadcrumb-item active">Completed</li>
     </ol>
+
     <div class="card mb-4">
         <div class="card-body">
             Let other people know about the status of reports! at
@@ -46,7 +47,6 @@
         </div>
     </div>
 
-
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-chart-area mr-1"></i>
@@ -60,11 +60,76 @@
         <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
     </div>
 
+    @*MODAL SECTION UPDATE START*@
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">Update Status: Submitted</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="row-1" style="border:double; margin-bottom:10px; height:250px;">
+                                <img src="https://i.ytimg.com/vi/1jPeMx0mJeU/hqdefault.jpg" style="width:100%; height:250px" />
+
+                            </div>
+
+                            <div id="mapid" class="row-1" style="border:double; margin-bottom:10px; height: 250px;">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseReportNo" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Report No.</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseLocation" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Location</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbConcern" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Concern</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateReported" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Reported</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateUpdated" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Completed</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="email" id="tbReporter" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Reported by</label>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <p>Powered by TerraTechPH</p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Close">Close</button>
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    @*MODAL SECTION UPDATE END*@
 </body>
 </html>
 
 
 <script>
+    var map = L.map('mapid');
     LoadCompletedTable();
 
     function LoadCompletedTable() {
@@ -106,7 +171,7 @@
                 {
                     title: "Manage",
                     "render": function () {
-                        var edit = "<a class='btn btn-primary btn-xs EditUserType' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        var edit = "<a class='btn btn-primary btn-xs btnUpdate' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
                         return edit;
                     },
                     width: "80px"
@@ -157,6 +222,24 @@
         return color;
     }
 
+    $('.leaflet-control-attribution').hide();
+
+    $('#myModalUpdate').on('shown.bs.modal', function () {
+        $('#myModalUpdate').modal('show');
+
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 10);
+    });
+
+    function ConvertToDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    };
+
     var BAR = document.getElementById("myBarChart");
     var myBarChart = new Chart(BAR, {
         type: 'bar',
@@ -194,6 +277,94 @@
                 //['#00FFFF', '#32CD32']
             }],
         },
+    });
+
+
+    $(document).on("click", ".btnUpdate", function () {
+        $('#myModalUpdate').modal('show');
+        var data = table.row($(this).parents('tr')).data();
+        var PARAM_CaseReportID = data["CaseReportID"];
+        CaseReportID = PARAM_CaseReportID;
+
+        var locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+        var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+        var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+        var maxBounds = [
+            [21.116625, 131.175528],
+            [4.991861, 115.976455]
+        ];
+
+        L.tileLayer(b).addTo(map);
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+        for (var i = 0; i < locations.length; i++) {
+            marker = new L.marker([locations[i][1], locations[i][2]])
+                .bindPopup(locations[i][0])
+                .addTo(map);
+        }
+        map.setMaxBounds(maxBounds);
+
+        document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbReporter").value = data["FamilyName"];
+
+    });
+
+    $(document).on("click", ".btnInProgress", function () {
+        var PARAM_VolunteerID = $('.VolunteerDDL').val();
+        VolunteerID = PARAM_VolunteerID;
+
+        if (VolunteerID == "Select Volunteer") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select a volunteer!',
+                footer: '<a href>Powered by TerraTechPH</a>'
+            })
+        }
+
+        else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you really want to mark this In Progress??",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, mark it as In Progress!'
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        type: "GET",
+                        "url": "/DataUpdate/UpdateCaseReportToInProgress",
+                        dataType: "json",
+                        async: false,
+                        data: {
+                            CaseReportID: CaseReportID,
+                            VolunteerID: VolunteerID
+                        }
+                    });
+
+                    location.reload();
+
+
+                }
+            })
+        }
     });
 
 </script>

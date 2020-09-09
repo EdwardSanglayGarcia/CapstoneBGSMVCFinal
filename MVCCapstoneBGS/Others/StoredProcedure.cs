@@ -59,7 +59,9 @@ namespace MVCCapstoneBGS
         U_CaseReport_R,
         U_CaseReport_A,
         U_CaseReport_I,
-        U_CaseReport_C
+        U_CaseReport_C,
+        U_CaseReport_S,
+        U_CaseReport_Finalize_R
 
 
 

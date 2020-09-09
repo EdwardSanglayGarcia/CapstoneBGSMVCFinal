@@ -321,7 +321,7 @@
         ];
 
         L.tileLayer(b).addTo(map);
-        map.setView([data["XCoordinates"], data["YCoordinates"]], 8);
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
         for (var i = 0; i < locations.length; i++) {
             marker = new L.marker([locations[i][1], locations[i][2]])
                 .bindPopup(locations[i][0])

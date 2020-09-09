@@ -69,7 +69,6 @@ namespace MVCCapstoneBGS.Controllers
             var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "["+ mmm.XCoordinates+","+mmm.YCoordinates+"]"));
             ViewBag.DUMMY2 = commaSeparated;
 
-
             return View();
         }
 
@@ -324,6 +323,7 @@ namespace MVCCapstoneBGS.Controllers
         #endregion
 
         #region CommunityUser
+
         public ActionResult CommunityUser(int UpdatedStatusID=0)
         {
             //ViewBag.[Pangalan na gusto mo] = Value na gusto mo;
@@ -334,7 +334,6 @@ namespace MVCCapstoneBGS.Controllers
             var WaterNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 2);
             var Users = _IDataProvider.GetDashboard();
             var Progress = _IDataProvider.GetHomeDashboardProgress(DateTime.Now.Year);
-
 
             ViewBag.VBLand = LandNumber.ToString();
             ViewBag.VBWater = WaterNumber;

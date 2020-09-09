@@ -69,6 +69,29 @@ namespace MVCCapstoneBGS.Controllers
             }
         }
 
+        public void TweetCompleted(int CaseReportID, string Location, string Concern, string DateReported, string DateCompleted)
+        {
+            string image;
+            image = @"C:\Users\pc\Desktop\Capstone Codes\Final Web Application\MVCCapstoneBGS\TerraMaster\upload\shutterstock_124871620.jpg";
+
+            DefaultData cmd = new DefaultData();
+
+            var service = new TwitterService(cmd.CONSUMER_KEY, cmd.CONSUMER_SECRET);
+            service.AuthenticateWith(cmd.ACCESS_TOKEN, cmd.ACCESS_TOKEN_SECRET);
+
+            using (var stream = new FileStream(image, FileMode.Open))
+            {
+                service.SendTweetWithMedia(new SendTweetWithMediaOptions
+                {
+                    Status =   
+                    "Completion Report\n"+
+                    "Case Report No "+CaseReportID+" in "+Location+" having a "+Concern+" last "+DateReported+" was marked as completed ("+DateCompleted+")."+
+                    " #TerraTechPH",
+                    Images = new Dictionary<string, Stream> { { image, stream } }
+                });
+            }
+        }
+
         public ActionResult GenerateYearReport(int year)
         {
             var memoryStream = new MemoryStream();

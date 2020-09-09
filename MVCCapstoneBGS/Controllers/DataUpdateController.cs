@@ -51,5 +51,17 @@ namespace MVCCapstoneBGS.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult UpdateCaseReportToSubmitted(int CaseReportID)
+        {
+            var data = _IDataProvider.UpdateCaseReport_Submitted(CaseReportID);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateCaseReportToFinalizeRejected(int CaseReportID, string Notes)
+        {
+            var data = _IDataProvider.UpdateCaseReport_FinalizeRejected(CaseReportID, Notes);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

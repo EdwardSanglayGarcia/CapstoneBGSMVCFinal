@@ -39,7 +39,6 @@ namespace MVCCapstoneBGS
 
         #region Update
         List<UserType> UpdateUserType(int UserTypeID, string Description);
-
         List<Volunteer> UpdateVolunteer(int VolunteerID, string GivenName, string MaidenName, string FamilyName);
         List<EnvironmentalConcern> UpdateEnvironmentalConcern(int EnvironmentalConcernID, string Description);
         List<UpdatedStatus> UpdateUpdatedStatus(int UpdatedStatusID, string Description);
@@ -54,6 +53,10 @@ namespace MVCCapstoneBGS
         List<CaseReport> UpdateCaseReport_Completed(int CaseReportID);
 
         List<CaseReport> UpdateCaseReport_InProgress(int CaseReportID, int VolunteerID);
+
+        List<CaseReport> UpdateCaseReport_Submitted(int CaseReportID);
+
+        List<CaseReport> UpdateCaseReport_FinalizeRejected(int CaseReportID, string Notes);
         #endregion
 
         //CHARTS
