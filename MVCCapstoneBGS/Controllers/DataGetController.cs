@@ -99,5 +99,10 @@ namespace MVCCapstoneBGS.Controllers
             return Json(data,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetLeaderboard_Year(int UpdatedStatusID, int Year)
+        {
+            var data = _IDataProvider.GetLeaderboards_Year(UpdatedStatusID, Year);
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

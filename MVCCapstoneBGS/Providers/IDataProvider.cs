@@ -15,6 +15,8 @@ namespace MVCCapstoneBGS
         List<UpdatedStatus> GetUpdatedStatus();
         List<CaseReport> GetCaseReport(int UpdatedStatusID);
         List<UserInformation> GetUserInformation();
+
+        List<Leaderboard> GetLeaderboards_Year(int UpdatedStatusID, int Year);
         #endregion
 
         #region Insert

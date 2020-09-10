@@ -22,6 +22,10 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Merriweather%3A300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic&amp;subset=latin%2Clatin-ext&amp;' type='text/css' media='all' />
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Mystery+Quest%3Aregular&amp;subset=latin%2Clatin-ext&amp;' type='text/css' media='all' />
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
     <link rel='stylesheet' href='../TerraMaster/css/style.css' type='text/css' media='all' />
     <link rel='stylesheet' href='../TerraMaster/plugins/superfish/css/superfish.css' type='text/css' media='all' />
     <link rel='stylesheet' href='../TerraMaster/plugins/dl-menu/component.css' type='text/css' media='all' />
@@ -35,6 +39,10 @@
     <link rel='stylesheet' href='../TerraMaster/css/master-custom.css' type='text/css' media='all' />
     <script type='text/javascript' src='../TerraMaster/js/jquery/jquery.js'></script>
     <script type='text/javascript' src='../TerraMaster/js/jquery/jquery-migrate.min.js'></script>
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
 
     <script>
         var ms_grabbing_curosr = 'plugins/masterslider/public/assets/css/common/grabbing.html',
@@ -535,6 +543,24 @@
                     </section>
 
 
+                    <section id="content-section-10">
+                        <div class="greennature-color-wrapper greennature-item greennature-content-item gdlr-show-all " style="background-color: white; padding-bottom: 20px; ">
+
+                            <div class="container">
+                                <h3 class="greennature-item-title greennature-skin-title greennature-skin-border" style="text-align:center;">Community User Yearly Leaderboards</h3>
+
+                                <div class="tab-pane fade p-3 " id="one" role="tabpanel" aria-labelledby="one-tab" aria-selected="false">
+
+                                    <table id="AcceptedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </section>
+
 
                     <section id="content-section-9">
                         <div class="greennature-parallax-wrapper greennature-background-image gdlr-show-all greennature-skin-dark-skin" id="greennature-parallax-wrapper-3" data-bgspeed="0.15" style="background-image: url('../TerraMaster/upload/service-bg-2.jpg'); padding-top: 135px; padding-bottom: 80px; ">
@@ -694,11 +720,21 @@
     <!-- body-wrapper -->
 
     <script>
+
+        //$(document).ready(function () {
+         
+        //});
+
+   
+     
+
         (function ($) {
+
             "use strict";
             $(function () {
-                var masterslider_d1da = new MasterSlider();
 
+                var masterslider_d1da = new MasterSlider();
+                var table;
                 // slider controls
                 masterslider_d1da.control('arrows', { autohide: true, overVideo: true });
                 masterslider_d1da.control('bullets', { autohide: false, overVideo: true, dir: 'h', align: 'bottom', space: 6, margin: 25 });
@@ -742,6 +778,69 @@
 
                 window.masterslider_instances = window.masterslider_instances || {};
                 window.masterslider_instances["5_d1da"] = masterslider_d1da;
+                LoadAcceptedTable();
+
+                function LoadAcceptedTable() {
+                    table = $('#AcceptedTable').DataTable({
+                        "dom": 'lrtip',
+                        "bInfo": false,
+                        "bPaginate": false,
+                        bLengthChange: false,
+                        destroy: true,
+                        responsive: true,
+                        order: [[1, 'desc']],
+                        ajax: {
+                            type: "GET",
+                            "url": "/DataGet/GetLeaderboard_Year?UpdatedStatusID=5&Year=2020",
+                            dataSrc: function (json) {
+                                var a = new Array();
+                                for (var b = 0; b <= json.length - 1; b++) {
+                                    var c = json[b];
+                                    a.push({
+                                        'UserInformationID': c.UserInformationID,
+                                        'Username': c.Username,
+                                        'Points': c.Points,
+                                        'LandPoints': c.LandPoints,
+                                        'WaterPoints': c.WaterPoints
+                                    });
+                                }
+                                return a;
+                            },
+                        },
+                        columns: [
+                            {
+                                title: "Username",
+                                data: "Username",
+                                orderable: false,
+                            },
+                            {
+                                title: "Overall Points",
+                                data: "Points",
+                                orderable: false,
+                            },
+                            {
+                                title: "<i class='fa fa- globe'></i>Land Points",
+                                data: "LandPoints",
+                                orderable: false,
+                            },
+                            {
+                                title: "Water Points",
+                                data: "WaterPoints",
+                                orderable: false,
+                            },
+
+ 
+                        ],
+                        'columnDefs': [
+                            {
+                                "className": "dt-center", "targets": "_all"
+                            }],
+                    });
+
+                    return table;
+                };
+
+
             });
 
         })(jQuery);

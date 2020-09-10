@@ -109,4 +109,40 @@ namespace MVCCapstoneBGS
         public int W_Completed { get; set; }
     }
 
+    public class Leaderboard
+    {
+        public int UserInformationID { get; set; }
+        public int Points { get; set; }
+        public string Area_1_Report { get; set; }
+        public string Area_2_Report { get; set; }
+        public string Area_3_Report { get; set; }
+        public string Area_4_Report { get; set; }
+        public string Area_5_Report { get; set; }
+
+        public int Areas { get; set; }
+        public string FullName { get; set; }
+        public string Username { get; set; }
+
+        public int LandPoints { get; set; }
+        public string Land_1_Report { get; set; }
+        public string Land_5_Reports { get; set; }
+        public string Land_10_Reports { get; set; }
+        public string Land_15_Reports { get; set; }
+        public string Land_20_Reports { get; set; }
+        public string Land_25_Reports { get; set; }
+        public string Land_30_Reports { get; set; }
+        public string Land_50_Reports { get; set; }
+
+        public int WaterPoints { get; set; }
+        public string Water_1_Report { get; set; }
+        public string Water_5_Reports { get; set; }
+        public string Water_10_Reports { get; set; }
+        public string Water_15_Reports { get; set; }
+        public string Water_20_Reports { get; set; }
+        public string Water_25_Reports { get; set; }
+        public string Water_30_Reports { get; set; }
+        public string Water_50_Reports { get; set; }
+        public string Overall_100_Reports { get; set; }
+    }
+
 }

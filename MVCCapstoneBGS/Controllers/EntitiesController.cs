@@ -80,6 +80,7 @@ namespace MVCCapstoneBGS.Controllers
             ViewBag.VBLayout = Layout_ADashboard;
             return View();
         }
+
         #endregion
 
         #region Administrator

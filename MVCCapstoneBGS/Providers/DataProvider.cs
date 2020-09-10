@@ -83,6 +83,23 @@ namespace MVCCapstoneBGS
             }
             return result;
         }
+
+
+        public List<Leaderboard> GetLeaderboards_Year(int UpdatedStatusID, int Year)
+        {
+            var result = new List<Leaderboard>();
+            using (IDbConnection con = new SqlConnection(constring))
+            {
+                con.Open();
+                var param = new DynamicParameters();
+                param.Add("@UpdatedStatusID", UpdatedStatusID);
+                param.Add("@Year", Year);
+                result = con.Query<Leaderboard>(
+                    StoredProcedureEnum.V_Leaderboard_Y.ToString(), param, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return result;
+        }
+
         #endregion
 
         #region Insert
