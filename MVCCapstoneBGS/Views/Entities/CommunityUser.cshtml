@@ -82,19 +82,22 @@
 
         <div class="card-body">
 
-                <select name="UpdatedStatusDDL" class="btn btn-dark UpdatedStatusDDL">- Please Select -</select>
+            <select name="UpdatedStatusDDL" class="btn btn-dark UpdatedStatusDDL">- Please Select -</select>
 
-                <div class="control-label col-xs-12 col-sm-4">
-                    <label class="asteriskRequired"></label>
-                </div>
-
-                <div style="padding-top:25px; height:500px" id='map'></div>
+            <div class="control-label col-xs-12 col-sm-4">
+                <label class="asteriskRequired"></label>
             </div>
+
+            <div style="padding-top:25px; height:500px" id='map'></div>
+        </div>
 
         <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
     </div>
 
-
+    <div class="col-xs-12 col-sm-8">
+        <input type="submit" id="btnGenerate" value="Generate" class="btn btn-primary btn-md btnGenerate" />
+    </div>
+    @*@Html.Raw(ViewBag.DUMMY2)*@
 </body>
 </html>
 
@@ -102,24 +105,28 @@
 <script>
 
     $(document).ready(function () {
-        UpdatedStatusDDL();
+        LoadUpdatedStatusDDL();
         LoadMap();
     });
 
     function LoadMap() {
-        var locations = [@Html.Raw(ViewBag.DUMMY2)];
+    var map = L.map('map');
+    var locations = [
+        ["DENR HEADQUARTERS", 14.642285, 121.050823],
+        @Html.Raw(ViewBag.DUMMY2)
+    ];
 
         var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
         var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
-        var map = L.map('map');
+
         var maxBounds = [
             [21.116625, 131.175528],
             [4.991861, 115.976455]
         ];
 
-        L.tileLayer(a).addTo(map);
-        map.setView([11.206051, 122.447886], 8);
+        L.tileLayer(b).addTo(map);
+        map.setView([14.642285, 121.050823], 15);
         map.setMaxBounds(maxBounds);
         map.fitBounds(maxBounds);
 
@@ -129,12 +136,15 @@
                 .addTo(map);
         }
         $('.leaflet-control-attribution').hide();
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 10);
     }
 
 
 
 
-    function UpdatedStatusDDL() {
+    function LoadUpdatedStatusDDL() {
         var temp = $(".UpdatedStatusDDL").empty();
         temp.append($("<option>Select Status</option>"));
         $.ajax({
@@ -153,13 +163,8 @@
 
 
     $(document).on("change", ".UpdatedStatusDDL", function () {
-
-
         var PARAM_UPDATEDSTATUSID = $('.UpdatedStatusDDL').val();
-
-
         if (PARAM_UPDATEDSTATUSID == 0 || PARAM_UPDATEDSTATUSID == "" || PARAM_UPDATEDSTATUSID == null || PARAM_UPDATEDSTATUSID == "Select Status") {
-
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -167,7 +172,6 @@
                 footer: '<a>Powered by TerraTech</a>'
             })
         }
-
         else {
             try {
                 window.location.href = "/Entities/CommunityUser?UpdatedStatusID=" + PARAM_UPDATEDSTATUSID;
@@ -179,6 +183,13 @@
         }
     });
 
+
+
+    $(document).on("click", ".btnGenerate", function () {
+
+        locations.push(["DENR HQ", 14.642285, 121.050823]);
+        LoadMap();
+    });
 
 </script>
 

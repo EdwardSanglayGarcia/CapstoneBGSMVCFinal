@@ -21,7 +21,7 @@ namespace MVCCapstoneBGS.Controllers
         string Layout_CU = "~/TerraTech/TerraShared/CommunityUser.cshtml";
         string Layout_CUDashboard = "~/TerraTech/TerraShared/CommunityUser.cshtml";
 
-        public ActionResult Administrator()
+        public ActionResult Administrator(int UpdatedStatusID=0)
         {
             ViewBag.Title = LabelStruct.Administrator.AdministratorHomepage;
             ViewBag.VBLayout = Layout_ADashboard;
@@ -55,18 +55,37 @@ namespace MVCCapstoneBGS.Controllers
             ViewBag.VBUsers = Users;
             ViewBag.VBProgress = Progress;
 
-            var ggka = _IDataProvider.GetCaseReport(5).ToList();
+            //var ggka = _IDataProvider.GetCaseReport(5).ToList();
 
-            string x = string.Empty;
-            foreach (var m in ggka)
-            {
-                x += "[" + m.XCoordinates + ' ' + m.YCoordinates + "]";
-               
-            }
+            //string x = string.Empty;
+            //foreach (var m in ggka)
+            //{
+            //    x += "[" + m.XCoordinates + ' ' + m.YCoordinates + "]";
 
-            ViewBag.DUMMY = x;
+            //}
 
-            var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "["+ mmm.XCoordinates+","+mmm.YCoordinates+"]"));
+            //ViewBag.DUMMY = x;
+
+            //var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "["+ mmm.XCoordinates+","+mmm.YCoordinates+"]"));
+            //ViewBag.DUMMY2 = commaSeparated;
+
+
+            const string quote = "\"";
+            //var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "[" + mmm.XCoordinates + "," + mmm.YCoordinates + "]"));
+
+            var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(UpdatedStatusID).
+                Select(
+                mmm => "["
+                + quote
+                //   + "<center><img src='https://i.ytimg.com/vi/EXtNpsj1-0w/hqdefault.jpg' style='width:150px; height:100px;'></center>"
+                + "Case No: " + mmm.CaseReportID
+                + "<br />Reported on: " + mmm.DateReported
+                + "<br />Updated on: " + mmm.UpdatedStatusDate
+                + "<br />Type: " + mmm.Concern
+                + "<br />City: " + mmm.CaseLocation + " [" + mmm.XCoordinates + "," + mmm.YCoordinates + "]"
+                + quote
+                + "," + mmm.XCoordinates + "," + mmm.YCoordinates + "]"
+                ));
             ViewBag.DUMMY2 = commaSeparated;
 
             return View();

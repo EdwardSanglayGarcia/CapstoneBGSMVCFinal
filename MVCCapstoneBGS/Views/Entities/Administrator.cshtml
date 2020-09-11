@@ -18,15 +18,15 @@
         <li class="breadcrumb-item"><a href="">Administrator</a></li>
         <li class="breadcrumb-item active">Homepage</li>
     </ol>
- 
 
-   
+
+
     @*<ul>
-        @foreach (var person in ViewBag.DUMMY)
-        {
-            <li>'@person.XCoordinates - @person.YCoordinates'</li>
-        }
-    </ul>*@
+            @foreach (var person in ViewBag.DUMMY)
+            {
+                <li>'@person.XCoordinates - @person.YCoordinates'</li>
+            }
+        </ul>*@
 
     <!--DESCRIPTION START-->
     <div class="card mb-4">
@@ -202,21 +202,113 @@
     </div>
     <!--UPDATE MOAL END-->
 
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area mr-1"></i>
+            My Reported Cases
+        </div>
+
+
+        <div class="card-body">
+
+            <select name="UpdatedStatusDDL" class="btn btn-dark UpdatedStatusDDL">- Please Select -</select>
+
+            <div class="control-label col-xs-12 col-sm-4">
+                <label class="asteriskRequired"></label>
+            </div>
+
+            <div style="padding-top:25px; height:500px" id='map'></div>
+        </div>
+
+        <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+    </div>
+
+
 </body>
 </html>
 
 
 <script>
 
-    LoadCaseReport();
     $(document).ready(function () {
-        
+        LoadMap();
+        LoadCaseReport();
+        LoadUpdatedStatusDDL();
+
+    });
+
+    $(document).on("change", ".UpdatedStatusDDL", function () {
+        var PARAM_UPDATEDSTATUSID = $('.UpdatedStatusDDL').val();
+        if (PARAM_UPDATEDSTATUSID == 0 || PARAM_UPDATEDSTATUSID == "" || PARAM_UPDATEDSTATUSID == null || PARAM_UPDATEDSTATUSID == "Select Status") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select a year!',
+                footer: '<a>Powered by TerraTech</a>'
+            })
+        }
+        else {
+            try {
+                window.location.href = "/Entities/Administrator?UpdatedStatusID=" + PARAM_UPDATEDSTATUSID;
+            }
+            catch
+            {
+
+            }
+        }
     });
 
 
+
+    function LoadUpdatedStatusDDL() {
+        var temp = $(".UpdatedStatusDDL").empty();
+        temp.append($("<option>Select Status</option>"));
+        $.ajax({
+            type: "GET",
+            url: "/DataGet/GetUpdatedStatus",
+            dataType: "json",
+            success: function (response) {
+                $.each(response, function () {
+
+                    temp.append($("<option></option>").val(this['UpdatedStatusID']).html(this['Description']));
+                });
+            }
+        })
+    };
+
+    function LoadMap() {
+    var map = L.map('map');
+        var locations = [
+            ["DENR HEADQUARTERS", 14.642285, 121.050823],
+        @Html.Raw(ViewBag.DUMMY2)
+        ];
+        var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+        var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+
+        var maxBounds = [
+            [21.116625, 131.175528],
+            [4.991861, 115.976455]
+        ];
+
+        L.tileLayer(b).addTo(map);
+        map.setView([14.642285, 121.050823], 15);
+        map.setMaxBounds(maxBounds);
+        map.fitBounds(maxBounds);
+
+        for (var i = 0; i < locations.length; i++) {
+            marker =  new L.marker([locations[i][1], locations[i][2]])
+                .bindPopup(locations[i][0])
+                .addTo(map);
+        }
+        $('.leaflet-control-attribution').hide();
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 10);
+    };
+
     $(document).on("click", ".AddUserType", function () {
         $('#myModalAdd').modal('show');
-
     });
 
     function LoadCaseReport() {
@@ -288,7 +380,7 @@
                     "className": "dt-center", "targets": "_all"
                 }],
         });
-        
+
         return table;
     };
 

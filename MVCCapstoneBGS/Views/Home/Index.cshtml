@@ -801,7 +801,8 @@
                                         'Username': c.Username,
                                         'Points': c.Points,
                                         'LandPoints': c.LandPoints,
-                                        'WaterPoints': c.WaterPoints
+                                        'WaterPoints': c.WaterPoints,
+                                        'MainPoints': c.Points + " (Land: " + c.LandPoints + " | Water: " + c.WaterPoints+")",
                                     });
                                 }
                                 return a;
@@ -815,19 +816,10 @@
                             },
                             {
                                 title: "Overall Points",
-                                data: "Points",
+                                data: "MainPoints",
                                 orderable: false,
                             },
-                            {
-                                title: "<i class='fa fa- globe'></i>Land Points",
-                                data: "LandPoints",
-                                orderable: false,
-                            },
-                            {
-                                title: "Water Points",
-                                data: "WaterPoints",
-                                orderable: false,
-                            },
+
 
  
                         ],
