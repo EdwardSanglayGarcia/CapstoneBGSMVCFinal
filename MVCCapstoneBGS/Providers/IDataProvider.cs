@@ -8,13 +8,17 @@ namespace MVCCapstoneBGS
 {
     public interface IDataProvider
     {
+        #region SESSION
+        List<UserInformation> GetUserInformation();
+        #endregion
+
         #region View
         List<UserType> GetUserType();
         List<Volunteer> GetVolunteer();
         List<EnvironmentalConcern> GetEnvironmentalConcern();
         List<UpdatedStatus> GetUpdatedStatus();
         List<CaseReport> GetCaseReport(int UpdatedStatusID);
-        List<UserInformation> GetUserInformation();
+        
 
         List<Leaderboard> GetLeaderboards_Year(int UpdatedStatusID, int Year);
         #endregion

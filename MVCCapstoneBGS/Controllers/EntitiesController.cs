@@ -16,6 +16,10 @@ namespace MVCCapstoneBGS.Controllers
             _IDataProvider = new DataProvider();
         }
 
+
+
+
+
         string Layout_ADashboard= "~/TerraTech/TerraShared/AdministratorDashboard.cshtml";
 
         string Layout_CU = "~/TerraTech/TerraShared/CommunityUser.cshtml";
@@ -93,7 +97,54 @@ namespace MVCCapstoneBGS.Controllers
 
 
 
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
         #region CombinedFunctionalities
+
+        int SESSION_UserInformationID;
+        public ActionResult Authorise(string MYUsername = "LogHorizon", string MYPassword = "user")
+        {
+            var userDetail = _IDataProvider.GetUserInformation().Where(x => x.Username == MYUsername && x.Password == MYPassword).FirstOrDefault();
+
+            if (userDetail == null)
+            {
+                return View("Login");
+            }
+            else
+            {
+                var UserInformationID = userDetail.UserInformationID;
+                var UserTypeID = userDetail.UserTypeID;
+                var Password = userDetail.Password;
+                var Username = userDetail.Username;
+                SESSION_UserInformationID = userDetail.UserInformationID;
+                Session["UserInformationID"] = UserInformationID;
+                Session["Username"] = Username;
+                Session["UserTypeID"] = UserTypeID;
+                Session["Password"] = Password;
+
+                if (UserTypeID == 1)
+                {
+                    return RedirectToAction("Administrator", "Entities");
+                }
+
+                else if (UserTypeID == 2)
+                {
+
+                    return RedirectToAction("CommunityUser", "Entities");
+                }
+
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+
+
+        }
 
         public ActionResult Leaderboard()
         {

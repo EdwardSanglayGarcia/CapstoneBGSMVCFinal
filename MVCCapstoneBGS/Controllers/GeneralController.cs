@@ -8,11 +8,17 @@ namespace MVCCapstoneBGS.Controllers
 {
     public class GeneralController : Controller
     {
+        IDataProvider _IDataProvider;
+        public GeneralController()
+        {
+            _IDataProvider = new DataProvider();
+        }
         // GET: General
         public ActionResult Index()
         {
             return View();
         }
+   
 
         public ActionResult Dummy()
         {
