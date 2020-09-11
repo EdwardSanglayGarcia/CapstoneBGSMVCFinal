@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+
+
+
+<html>
+<head>
+    <title>TerraTech Login</title>
+</head>
+<body>
+    <h1 align="center">Login</h1>
+    @using (Html.BeginForm("Authorise", "Entities", FormMethod.Post))
+    {
+        <table cellpadding="5">
+
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="Username" /></td>
+            </tr>
+
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" name="Password" /></td>
+            </tr>
+
+        </table>
+        <br />
+        <input type="submit" value="Submit" />
+    }
+
+    @*Username,user.Password,user.Email,user.GivenName,user.MaidenName,user.FamilyName*@
+
+    <h1 align="center">Register</h1>
+
+    @using (Html.BeginForm("Register", "Entities", FormMethod.Post))
+    {
+        <table cellpadding="5">
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="Username" /></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="Password" /></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="Email" /></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="GivenName" /></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="MaidenName" /></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="text" name="FamilyName" /></td>
+            </tr>
+
+
+        </table>
+        <br />
+        <input type="submit" value="Submit" />
+    }
+
+</body>
+</html>
+

@@ -103,12 +103,34 @@ namespace MVCCapstoneBGS.Controllers
             return View();
         }
 
+        public ActionResult LogOut()
+        {
+            if (((int?)Session["UserInformationID"]) != null)
+            {
+                try
+                {
+                    int userId = (int)Session["UserInformationID"];
+                    Session.Abandon();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                //DO NOTHING
+            }
+            return RedirectToAction("Login", "Entities");
+        }
+
         #region CombinedFunctionalities
 
         int SESSION_UserInformationID;
-        public ActionResult Authorise(string MYUsername = "LogHorizon", string MYPassword = "user")
+       
+        public ActionResult Authorise(UserInformation user)
         {
-            var userDetail = _IDataProvider.GetUserInformation().Where(x => x.Username == MYUsername && x.Password == MYPassword).FirstOrDefault();
+            var userDetail = _IDataProvider.GetUserInformation().Where(x => x.Username == user.Username && x.Password == user.Password).FirstOrDefault();
 
             if (userDetail == null)
             {
@@ -146,6 +168,12 @@ namespace MVCCapstoneBGS.Controllers
 
         }
 
+        public ActionResult Register(UserInformation user)
+        {
+            _IDataProvider.InsertUserInformation(2,user.Username,user.Password,user.Email,user.GivenName,user.MaidenName,user.FamilyName);
+            return View("Login");
+        }
+
         public ActionResult Leaderboard()
         {
             ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
@@ -159,6 +187,7 @@ namespace MVCCapstoneBGS.Controllers
         #region Administrator
         public ActionResult Accounts()
         {
+            ViewBag.SESSIONID = SESSION_UserInformationID;
             ViewBag.Title = LabelStruct.Administrator.Volunteers;
             ViewBag.VBLayout = Layout_ADashboard;
             ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
@@ -419,7 +448,8 @@ namespace MVCCapstoneBGS.Controllers
             const string quote = "\"";
             //var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "[" + mmm.XCoordinates + "," + mmm.YCoordinates + "]"));
 
-            var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(UpdatedStatusID).
+            var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(UpdatedStatusID)
+                .
                 Select(
                 mmm => "["
                 +quote
