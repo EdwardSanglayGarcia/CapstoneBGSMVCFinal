@@ -94,9 +94,6 @@
         <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
     </div>
 
-    <div class="col-xs-12 col-sm-8">
-        <input type="submit" id="btnGenerate" value="Generate" class="btn btn-primary btn-md btnGenerate" />
-    </div>
     @*@Html.Raw(ViewBag.DUMMY2)*@
 </body>
 </html>
@@ -139,10 +136,8 @@
         setTimeout(function () {
             map.invalidateSize();
         }, 10);
+        map.invalidateSize();
     }
-
-
-
 
     function LoadUpdatedStatusDDL() {
         var temp = $(".UpdatedStatusDDL").empty();
@@ -159,8 +154,6 @@
             }
         })
     };
-
-
 
     $(document).on("change", ".UpdatedStatusDDL", function () {
         var PARAM_UPDATEDSTATUSID = $('.UpdatedStatusDDL').val();
@@ -181,14 +174,6 @@
 
             }
         }
-    });
-
-
-
-    $(document).on("click", ".btnGenerate", function () {
-
-        locations.push(["DENR HQ", 14.642285, 121.050823]);
-        LoadMap();
     });
 
 </script>

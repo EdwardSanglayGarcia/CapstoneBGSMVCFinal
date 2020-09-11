@@ -183,32 +183,32 @@
 
     $(document).ready(function () {
         LoadVolunteer();
-        LoadMyTrial();
+        //LoadMyTrial();
     });
 
 
-    function LoadMyTrial() {
-        //debugger;
-        var temp;
-        $.ajax({
-            type: "GET",
-            "url": "/DataGet/GetVolunteer",
+    //function LoadMyTrial() {
+    //    //debugger;
+    //    var temp;
+    //    $.ajax({
+    //        type: "GET",
+    //        "url": "/DataGet/GetVolunteer",
            
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                //alert(JSON.stringify(result));
-                $.each(response, function () {
-                    temp.append('VolunteerID');
-                });
-            },
-            error: function (response) {
-              //  debugger;
-                alert('eror');
-            }
-        });
-        alert(temp);
-    }
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: "json",
+    //        success: function (result) {
+    //            //alert(JSON.stringify(result));
+    //            $.each(response, function () {
+    //                temp.append('VolunteerID');
+    //            });
+    //        },
+    //        error: function (response) {
+    //          //  debugger;
+    //            alert('eror');
+    //        }
+    //    });
+    //    alert(temp);
+    //}
 
     function LoadVolunteer() {
         table = $('#VolunteerTable').DataTable({

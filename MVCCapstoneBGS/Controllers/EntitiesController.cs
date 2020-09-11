@@ -91,10 +91,13 @@ namespace MVCCapstoneBGS.Controllers
             return View();
         }
 
+
+
         #region CombinedFunctionalities
 
         public ActionResult Leaderboard()
         {
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
             ViewBag.Title = LabelStruct.Others.Leaderboards;
             ViewBag.VBLayout = Layout_ADashboard;
             return View();
@@ -349,6 +352,7 @@ namespace MVCCapstoneBGS.Controllers
             //ViewBag.[Pangalan na gusto mo] = Value na gusto mo;
 
             ViewBag.Title = LabelStruct.CommunityUser.CommunityUserHomepage;
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
 
             var LandNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 1);
             var WaterNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 2);
@@ -389,6 +393,8 @@ namespace MVCCapstoneBGS.Controllers
         public ActionResult SubmitReport()
         {
             ViewBag.VBLayout = Layout_CU;
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
+
             ViewBag.Title = LabelStruct.CommunityUser.SubmitReport;
             return View();
         }
@@ -396,12 +402,16 @@ namespace MVCCapstoneBGS.Controllers
         public ActionResult ViewStatus()
         {
             ViewBag.VBLayout = Layout_CU;
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
+
             ViewBag.Title = LabelStruct.CommunityUser.ViewStatus;
             return View();
         }
         public ActionResult Achievements()
         {
             ViewBag.VBLayout = Layout_CU;
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
+
             ViewBag.Title = LabelStruct.CommunityUser.Achievements;
             return View();
         }
