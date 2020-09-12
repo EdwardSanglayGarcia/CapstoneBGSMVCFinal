@@ -19,7 +19,8 @@
         <li class="breadcrumb-item active">Homepage</li>
     </ol>
 
-
+    @Session["UserInformationID"]
+  
 
 
     @*<ul>
@@ -221,6 +222,7 @@
 </html>
 
 <script>
+    
     $(document).ready(function () {
         LoadMap();
         LoadCaseReport();
@@ -246,7 +248,7 @@
             {
 
             }
-        }      
+        }
     });
 
 

@@ -429,26 +429,38 @@ namespace MVCCapstoneBGS.Controllers
 
         public ActionResult CommunityUser(int UpdatedStatusID=0)
         {
+            ViewBag.VBLayout = Layout_CUDashboard;
             //ViewBag.[Pangalan na gusto mo] = Value na gusto mo;
+            //    var PASS_SESSION = Session["Username"];
+            int PASS_UserInformationID = Convert.ToInt32(Session["UserInformationID"]);
 
             ViewBag.Title = LabelStruct.CommunityUser.CommunityUserHomepage;
             ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
 
-            var LandNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 1);
-            var WaterNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 2);
-            var Users = _IDataProvider.GetDashboard();
-            var Progress = _IDataProvider.GetHomeDashboardProgress(DateTime.Now.Year);
+            var UserDataBoard = _IDataProvider.GetLeaderboards_Year(5, DateTime.Now.Year).Where(x => x.UserInformationID == PASS_UserInformationID);
 
-            ViewBag.VBLand = LandNumber.ToString();
-            ViewBag.VBWater = WaterNumber;
-            ViewBag.VBUsers = Users;
-            ViewBag.VBProgress = Progress;
+            ViewBag.OverallScore = Convert.ToInt32(UserDataBoard.Select(p => p.Points).FirstOrDefault());
+            ViewBag.LandScore = Convert.ToInt32(UserDataBoard.Select(p => p.LandPoints).FirstOrDefault());
+            ViewBag.WaterScore = Convert.ToInt32(UserDataBoard.Select(p => p.WaterPoints).FirstOrDefault());
+            ViewBag.AreaScore = Convert.ToInt32(UserDataBoard.Select(p => p.Areas).FirstOrDefault());
+
+            //var LandNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 1);
+            //var WaterNumber = _IDataProvider.GetHomeDashboard(DateTime.Now.Year, 2);
+            //var Users = _IDataProvider.GetDashboard();
+            //var Progress = _IDataProvider.GetHomeDashboardProgress(DateTime.Now.Year);
+
+            //ViewBag.VBLand = LandNumber;
+            //ViewBag.VBWater = WaterNumber;
+            //ViewBag.VBUsers = Users;
+            //ViewBag.VBProgress = Progress;
 
 
             const string quote = "\"";
             //var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(5).Select(mmm => "[" + mmm.XCoordinates + "," + mmm.YCoordinates + "]"));
 
             var commaSeparated = string.Join(",", _IDataProvider.GetCaseReport(UpdatedStatusID)
+                .
+                Where(x=>x.UserInformationID == PASS_UserInformationID)
                 .
                 Select(
                 mmm => "["
@@ -467,7 +479,7 @@ namespace MVCCapstoneBGS.Controllers
 
 
 
-            ViewBag.VBLayout = Layout_CUDashboard;
+         
             return View();
         }
 
@@ -492,7 +504,8 @@ namespace MVCCapstoneBGS.Controllers
         {
             ViewBag.VBLayout = Layout_CU;
             ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
-
+            
+            _IDataProvider.GetLeaderboards_Year(5, DateTime.Now.Year);
             ViewBag.Title = LabelStruct.CommunityUser.Achievements;
             return View();
         }

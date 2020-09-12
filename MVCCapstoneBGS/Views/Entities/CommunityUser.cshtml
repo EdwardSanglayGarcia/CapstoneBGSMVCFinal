@@ -19,7 +19,7 @@
 </head>
 <body>
 
-
+    @*@Html.Raw(ViewBag.DUMMY2)*@
 
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="">Community User</a></li>
@@ -38,7 +38,7 @@
             <div class="card bg-primary text-white mb-4">
                 <div class="card-body">Solved Water Cases: </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link">@ViewBag.VBWater</a>
+                    <a class="small text-white stretched-link">@ViewBag.WaterScore</a>
 
                 </div>
             </div>
@@ -47,25 +47,25 @@
             <div class="card bg-warning text-white mb-4">
                 <div class="card-body">Solved Land Cases:</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link"> @ViewBag.VBLand</a>
+                    <a class="small text-white stretched-link"> @ViewBag.LandScore</a>
 
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
-                <div class="card-body">Pending Cases:</div>
+                <div class="card-body">Overall Score:</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link"> @ViewBag.VBProgress</a>
+                    <a class="small text-white stretched-link"> @ViewBag.OverallScore</a>
 
                 </div>
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Rejected Reports:  </div>
+                <div class="card-body">Areas Reported:  </div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link">@ViewBag.VBUsers</a>
+                    <a class="small text-white stretched-link">@ViewBag.AreaScore</a>
 
                 </div>
             </div>
@@ -108,10 +108,11 @@
 
     function LoadMap() {
     var map = L.map('map');
-    var locations = [
-        ["DENR HEADQUARTERS", 14.642285, 121.050823],
-        @Html.Raw(ViewBag.DUMMY2)
-    ];
+        var locations = [
+            [
+                "DENR HEADQUARTERS", 14.642285, 121.050823],
+             @Html.Raw(ViewBag.DUMMY2)
+        ];
 
         var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
         var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';

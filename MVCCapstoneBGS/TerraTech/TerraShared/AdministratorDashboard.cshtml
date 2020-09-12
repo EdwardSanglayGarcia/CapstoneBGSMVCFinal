@@ -1,4 +1,11 @@
-﻿
+﻿@{
+    Layout = null;
+    if (Session["UserInformationID"] == null || Session["UserTypeID"].ToString() != "1")
+    {
+        Response.Redirect("~/Entities/Login");
+    }
+}
+
 
 <!DOCTYPE html>
 <!--EDWARD SANGLAY GARCIA-->
