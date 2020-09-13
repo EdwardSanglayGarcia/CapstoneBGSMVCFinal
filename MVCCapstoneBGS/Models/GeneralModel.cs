@@ -50,6 +50,8 @@ namespace MVCCapstoneBGS
         public string Handler_MaidenName { get; set; }
         public string Handler_FamilyName { get; set; }
         public string Notes { get; set; }
+
+        public string Base64Photo { get; set; }
     }
 
     public class UserInformation

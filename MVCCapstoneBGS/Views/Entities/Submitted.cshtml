@@ -209,7 +209,8 @@
                             'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
                             'DateUpdated': c.DateUpdated,
                             'Notes': c.Notes,
-                            'CaseReportPhoto': c.CaseReportPhoto
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo
                         });
                     }
                     return a;
@@ -343,7 +344,8 @@
         //var imgsrc = "data:image/png;base64," + base64;
 
         var base64EncodedStr = btoa(unescape(encodeURIComponent(src)));
-        var imgsrc = 'data:image/png;base64,' + base64EncodedStr;
+        //var imgsrc = 'data:image/gif;base64,' + base64EncodedStr;
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
 
         document.getElementById('imageID').src = imgsrc;
         document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
@@ -353,8 +355,9 @@
         document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
         document.getElementById("tbReporter").value = data["FamilyName"];
 
-        alert(imgsrc);
-        alert(src);
+        //alert(data["CaseReportPhoto"]);
+        //alert(imgsrc); //MJU1
+        //alert(src); //255,216...
     });
 
     $(document).on("click", ".btnAccept", function () {
