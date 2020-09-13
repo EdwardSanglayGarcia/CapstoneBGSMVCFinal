@@ -29,8 +29,10 @@ namespace MVCCapstoneBGS
         List<Volunteer> InsertVolunteer(string GivenName, string MaidenName, string FamilyName);
         List<EnvironmentalConcern> InsertEnvironmentalConcern(int EnvironmentalConcernID, string Description);
         List<UpdatedStatus> InsertUpdatedStatus(int UpdatedStatusID, string Description);
-        List<CaseReport> InsertCaseReport(int UserInformationID, int EnvironmentalConcernID, int XCoordinates, int YCoordinates, string CaseReportPhoto, string CaseLocation);
+        List<CaseReport> InsertCaseReport(int UserInformationID, int EnvironmentalConcernID, string XCoordinates, string YCoordinates, byte[] CaseReportPhoto, string CaseLocation);
         List<UserInformation> InsertUserInformation(int UserTypeID, string UserName, string Password, string Email, string GivenName, string MaidenName, string FamilyName);
+
+    
         #endregion
 
         #region Delete

@@ -74,7 +74,7 @@
 
                         <div class="col-md-7">
                             <div class="row-1" style="border:double; margin-bottom:10px; height:250px;">
-                                <img src="https://i.ytimg.com/vi/1jPeMx0mJeU/hqdefault.jpg" style="width:100%; height:250px" />
+                                <img src="" id="imageID" style="width:100%; height:250px" />
 
                             </div>
 
@@ -138,21 +138,36 @@
 <script>
 
     var map = L.map('mapid');
+    var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+    var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+    var maxBounds = [
+        [21.116625, 131.175528],
+        [4.991861, 115.976455]
+    ];
+
+    L.tileLayer(b).addTo(map);
+    map.setMaxBounds(maxBounds);
+    var marker;
+
     var CaseReportID;
 
     $(document).ready(function () {
         LoadSubmittedTable();
     });
 
-
     $('.leaflet-control-attribution').hide();
 
     $('#myModalUpdate').on('shown.bs.modal', function () {
         $('#myModalUpdate').modal('show');
-      
+
         setTimeout(function () {
             map.invalidateSize();
         }, 10);
+    });
+
+    $("#myModalUpdate").on("hidden.bs.modal", function () {
+        map.removeLayer(marker);
     });
 
     function ConvertToDate(value) {
@@ -193,7 +208,8 @@
                             'YCoordinates': c.YCoordinates,
                             'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
                             'DateUpdated': c.DateUpdated,
-                            'Notes': c.Notes
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto
                         });
                     }
                     return a;
@@ -315,29 +331,30 @@
                 , data["YCoordinates"]
             ]
         ];
-        var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
-        var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
-        var maxBounds = [
-            [21.116625, 131.175528],
-            [4.991861, 115.976455]
-        ];
-
-        L.tileLayer(b).addTo(map);
         map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
-        for (var i = 0; i < locations.length; i++) {
-            marker = new L.marker([locations[i][1], locations[i][2]])
-                .bindPopup(locations[i][0])
-                .addTo(map);
-        }
-        map.setMaxBounds(maxBounds);
 
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var src = data["CaseReportPhoto"];
+        //var base64 = btoa(src);
+        //var imgsrc = "data:image/png;base64," + base64;
+
+        var base64EncodedStr = btoa(unescape(encodeURIComponent(src)));
+        var imgsrc = 'data:image/png;base64,' + base64EncodedStr;
+
+        document.getElementById('imageID').src = imgsrc;
         document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
         document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) +"]";
         document.getElementById("tbConcern").value = data["Concern"];
         document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
         document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
-        document.getElementById("tbReporter").value = data["FamilyName"]; 
+        document.getElementById("tbReporter").value = data["FamilyName"];
+
+        alert(imgsrc);
+        alert(src);
     });
 
     $(document).on("click", ".btnAccept", function () {
@@ -393,5 +410,9 @@
             }
         })
     });
+
+    function hexToBase64(str) {
+        return btoa(String.fromCharCode.apply(null, str.toString().replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+    }
 
 </script>

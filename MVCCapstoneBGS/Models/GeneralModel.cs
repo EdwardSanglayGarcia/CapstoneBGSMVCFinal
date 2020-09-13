@@ -40,7 +40,7 @@ namespace MVCCapstoneBGS
         public string UpdatedStatus { get; set; }
         public DateTime UpdatedStatusDate { get; set; }
         public string CaseLocation { get; set; }
-        public string CaseReportPhoto { get; set; }
+        public byte[] CaseReportPhoto { get; set; }
         public string XCoordinates { get; set; }
         public string YCoordinates { get; set; }
 

@@ -164,7 +164,7 @@ namespace MVCCapstoneBGS
             }
             return result;
         }
-        public List<CaseReport> InsertCaseReport(int UserInformationID, int EnvironmentalConcernID, int XCoordinates, int YCoordinates, string CaseReportPhoto, string CaseLocation)
+        public List<CaseReport> InsertCaseReport(int UserInformationID, int EnvironmentalConcernID, string XCoordinates, string YCoordinates, byte[]CaseReportPhoto, string CaseLocation)
         {
             var result = new List<CaseReport>();
             using (IDbConnection con = new SqlConnection(constring))
@@ -183,6 +183,10 @@ namespace MVCCapstoneBGS
             }
             return result;
         }
+
+
+
+
         public List<UserInformation> InsertUserInformation(int UserTypeID, string UserName, string Password, string Email, string GivenName, string MaidenName, string FamilyName)
         ///Insert User information
         {

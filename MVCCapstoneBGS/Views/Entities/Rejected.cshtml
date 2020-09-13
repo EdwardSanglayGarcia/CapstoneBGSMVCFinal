@@ -73,7 +73,7 @@
 
                         <div class="col-md-7">
                             <div class="row-1" style="border:double; margin-bottom:10px; height:250px;">
-                                <img src="https://i.ytimg.com/vi/1jPeMx0mJeU/hqdefault.jpg" style="width:100%; height:250px" />
+                                <img src="https://i.ytimg.com/vi/1jPeMx0mJeU/hqdefault.jpg" id="imageID" style="width:100%; height:250px" />
 
                             </div>
 
@@ -137,6 +137,16 @@
 <script>
 
     var map = L.map('mapid');
+    var marker;
+    var maxBounds = [
+        [21.116625, 131.175528],
+        [4.991861, 115.976455]
+    ];
+    map.setMaxBounds(maxBounds);
+    var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+    var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    L.tileLayer(b).addTo(map);
+
     var CaseReportID;
 
 
@@ -243,6 +253,10 @@
         }, 10);
     });
 
+    $("#myModalUpdate").on("hidden.bs.modal", function () {
+        map.removeLayer(marker);
+    });
+
     var BAR = document.getElementById("myBarChart");
     var myBarChart = new Chart(BAR, {
         type: 'bar',
@@ -301,22 +315,15 @@
                 , data["YCoordinates"]
             ]
         ];
-        var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
-        var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-
-        var maxBounds = [
-            [21.116625, 131.175528],
-            [4.991861, 115.976455]
-        ];
-
-        L.tileLayer(b).addTo(map);
+        
         map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
-        for (var i = 0; i < locations.length; i++) {
-            marker = new L.marker([locations[i][1], locations[i][2]])
-                .bindPopup(locations[i][0])
-                .addTo(map);
-        }
-        map.setMaxBounds(maxBounds);
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+       
+        var src = 'https://i.insider.com/5ad8e2b9bd967120008b4656?width=1136&format=jpeg';
+
+        document.getElementById('imageID').src = src;
 
         document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
         document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
