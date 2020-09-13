@@ -55,54 +55,72 @@ namespace MVCCapstoneBGS.Controllers
         {
             //= cmd.GetUserType();
             var data  = _IDataProvider.GetUserType();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetCaseReport(int UpdatedStatusID)
         {
             var data = _IDataProvider.GetCaseReport(UpdatedStatusID);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetCurrentCaseReport(int UpdatedStatusID)
         {
             var data = _IDataProvider.GetCaseReport(UpdatedStatusID).Where(x=>x.UpdatedStatusDate.Year == DateTime.Now.Year && x.UpdatedStatusID == UpdatedStatusID);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetCurrentCompletedReports(int UpdatedStatusID)
         {
             var data = _IDataProvider.GetCaseReport(UpdatedStatusID).Where(x => x.UpdatedStatusDate.Year == DateTime.Now.Year && x.UpdatedStatusID == UpdatedStatusID);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetUserInformation()
         {
             var data = _IDataProvider.GetUserInformation().Where(x=>x.UserTypeID==2);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
         public ActionResult GetYear()
         {
             var data = _IDataProvider.GetYearDDL();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public JsonResult GetVolunteer()
         {
             var data = _IDataProvider.GetVolunteer();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetUpdatedStatus()
         {
             var data = _IDataProvider.GetUpdatedStatus();
-            return Json(data,JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
 
         public ActionResult GetLeaderboard_Year(int UpdatedStatusID, int Year)
         {
             var data = _IDataProvider.GetLeaderboards_Year(UpdatedStatusID, Year);
-            return Json(data, JsonRequestBehavior.AllowGet);
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
         }
     }
 }
