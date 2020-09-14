@@ -61,6 +61,8 @@
     </div>
 
     @*MODAL SECTION UPDATE START*@
+
+    
     <div class="modal fade" id="myModalUpdate" role="dialog">
         <div class="modal-dialog modal-lg">
             <!-- Modal content-->
@@ -171,7 +173,8 @@
                             'XCoordinates': c.XCoordinates,
                             'YCoordinates': c.YCoordinates,
                             'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
-                            'Notes': c.Notes
+                            'Notes': c.Notes,
+                            'Base64Photo': c.Base64Photo
                         });
                     }
                     return a;
@@ -319,9 +322,11 @@
             .addTo(map);
 
 
-        var src = 'https://i.insider.com/5ad8e2b9bd967120008b4656?width=1136&format=jpeg';
+        var src = data["CaseReportPhoto"];
 
-        document.getElementById('imageID').src = src;
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+
+        document.getElementById('imageID').src = imgsrc;
 
         document.getElementById("tbCaseReportNo").value = PARAM_CaseReportID;
         document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";

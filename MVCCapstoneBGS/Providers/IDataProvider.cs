@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace MVCCapstoneBGS
 {
@@ -32,7 +33,8 @@ namespace MVCCapstoneBGS
         List<CaseReport> InsertCaseReport(int UserInformationID, int EnvironmentalConcernID, string XCoordinates, string YCoordinates, byte[] CaseReportPhoto, string CaseLocation);
         List<UserInformation> InsertUserInformation(int UserTypeID, string UserName, string Password, string Email, string GivenName, string MaidenName, string FamilyName);
 
-    
+        List<CaseReport> InsertCaseReport(CaseReport UI, HttpPostedFileBase image1);
+
         #endregion
 
         #region Delete

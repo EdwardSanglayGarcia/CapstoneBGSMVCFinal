@@ -1,4 +1,4 @@
-﻿
+﻿@model MVCCapstoneBGS.CaseReport 
 @{
     Layout = "~/TerraTech/TerraShared/CommunityUser.cshtml";
 }
@@ -6,11 +6,12 @@
 <!DOCTYPE html>
 
 <html>
-<head>
 
+<head>
     <meta name="viewport" content="width=device-width" />
     <title>SubmitReport</title>
 </head>
+
 <body>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="">Community User</a></li>
@@ -23,44 +24,203 @@
         </div>
     </div>
 
-    <video id="video" width="640" height="480" autoplay></video>
-    <button id="snap">Snap Photo</button>
-    <canvas id="canvas" width="640" height="480"></canvas>
 
+    @using (Html.BeginForm("SubmitReport", "Entities", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <center>
+            <div id="SubmitReport" role="dialog">
+                <div class="col-md-6">
+                    <div class="md-form mb-3">
+                        <div class="form-group">
+                            <h4>Submit Report</h4>
+                            <img id='img-upload' style="border:thin; margin-bottom:10px; height:450px; width:100%;" />
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-default btn-file" style=" position: relative; overflow: hidden;">
+                                        Upload Image
+                                        <input type="file" accept="image/*" id="image1" name="image1" alt="Responsive image" style="position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; text-align: right; filter: alpha(opacity=0); opacity: 0; outline: none; background: white; cursor: inherit; display: block;" capture onclick="getData()">
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-form mb-3">
+                        <label id="DropDown">Environmental Concern</label>
+                        <select name="EnvironmentalConcernID" id="EnvironmentalConcernID">
+                            <option value="1">Land Concerns</option>
+                            <option value="2">Water Concerns</option>
+                        </select>
+                        @*<div class="md-form mb-3">
+                                <div class="form-group">
+                                    <label for="FormControlTextarea1">Additional Concerns</label>
+                                    <textarea class="form-control rounded-0" id="add-cnrns" rows="5"></textarea>
+                                </div>
+                            </div>*@
+                    </div>
+
+                    <input type="hidden" name="UserInformationID" id="UserInformationID">
+                    <input type="hidden" name="YCoordinates" id="YCoordinates">
+                    <input type="hidden" name="XCoordinates" id="XCoordinates">
+                    <input type="hidden" name="CaseLocation" id="CaseLocation">
+
+                    <div class="modal-footer">
+                        <small>Powered by TerraTechPH</small>
+                        <input type="submit" value="Submit" class="btn btn-primary btn-md btnREQAddVolunteer" id="btnREQAddVolunteer" />
+
+
+                    </div>
+                </div>
+            </div>
+        </center>
+    }
+
+    @*<input type="button" class="btn btn-primary btnInProgress" id="btnInProgress" >*@
+   
+    @*<p id="DisplayInformation"></p>*@
 </body>
 </html>
 
 
 <script>
-    var video = document.getElementById('video');
+    var FINAL_LATITUDE;
+    var FINAL_LONGITUDE;
+    var FINAL_LOCATION;
 
-    // Get access to the camera!
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // Not adding `{ audio: true }` since we only want video now
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-            //video.src = window.URL.createObjectURL(stream);
-            video.srcObject = stream;
-            video.play();
+    function getData() {
+        if (navigator.geolocation) {
+
+            navigator.geolocation.watchPosition(providePosition, showError, {
+                enableHighAccuracy: true,
+                maximumAge: 5000 // 5 sec.
+            });
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                x.innerHTML = "Permission was denied by the user."
+                break;
+
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML = "Location information is unavailable."
+                break;
+
+            case error.TIMEOUT:
+                x.innerHTML = "The request to get user location timed out."
+                break;
+
+            case error.UNKNOWN_ERROR:
+                x.innerHTML = "An unknown error occurred."
+                break;
+        }
+    }
+
+
+    var Information = document.getElementById("DisplayInformation");
+    function providePosition(position) {
+
+        var XCoordinate = position.coords.latitude;
+        var YCoordinate = position.coords.longitude;
+
+        var query = "latitude=" + XCoordinate + "&longitude=" + YCoordinate + "&localityLanguage=en";
+
+        //Establish a request
+        const Http = new XMLHttpRequest();
+
+        var bigdatacloud_api = "https://api.bigdatacloud.net/data/reverse-geocode-client?";
+        bigdatacloud_api += query;
+        Http.open("GET", bigdatacloud_api);
+        Http.send();
+
+        Http.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+
+                //Information.innerHTML += "<br />" +
+                //    "X Coordinate: " + myObj.latitude + "<br />" +
+                //    "Y Coordinate: " + myObj.longitude + "<br />" +
+                //    "Postal Code: " + myObj.postcode + "<br />" +
+                //    "City: " + myObj.city + "<br />" +
+                //    "Country: " + myObj.countryName + "<br />";
+
+                FINAL_LATITUDE = myObj.latitude;
+                FINAL_LONGITUDE = myObj.longitude;
+                FINAL_LOCATION = myObj.city;
+
+                XCoordinates = document.getElementById("XCoordinates");
+                XCoordinates.value = FINAL_LATITUDE;
+
+                var YCoordinates;
+                YCoordinates = document.getElementById("YCoordinates");
+                YCoordinates.value = FINAL_LONGITUDE;
+
+                var CaseLocation;
+                CaseLocation = document.getElementById("CaseLocation");
+                CaseLocation.value = FINAL_LOCATION;
+
+                var UserInformationID;
+                UserInformationID = document.getElementById("UserInformationID");
+                UserInformationID.value = @Session["UserInformationID"];
+
+            }
+        };
+    }
+
+
+
+
+
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
         });
-    }
 
-    /* Legacy code below: getUserMedia
-    else if(navigator.getUserMedia) { // Standard
-        navigator.getUserMedia({ video: true }, function(stream) {
-            video.src = stream;
-            video.play();
-        }, errBack);
-    } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-        navigator.webkitGetUserMedia({ video: true }, function(stream){
-            video.src = window.webkitURL.createObjectURL(stream);
-            video.play();
-        }, errBack);
-    } else if(navigator.mozGetUserMedia) { // Mozilla-prefixed
-        navigator.mozGetUserMedia({ video: true }, function(stream){
-            video.srcObject = stream;
-            video.play();
-        }, errBack);
-    }
-    */
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#image1").change(function () {
+            readURL(this);
+        });
+    });
+
+
+
+    //$(document).on("click", ".btnInProgress", function () {
+
+    //    alert(FINAL_LATITUDE + ' ' + FINAL_LOCATION + ' ' + FINAL_LATITUDE);
+
+    //});
+
+
+
 
 </script>

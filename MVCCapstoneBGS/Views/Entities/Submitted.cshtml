@@ -340,11 +340,7 @@
             .addTo(map);
 
         var src = data["CaseReportPhoto"];
-        //var base64 = btoa(src);
-        //var imgsrc = "data:image/png;base64," + base64;
-
-        var base64EncodedStr = btoa(unescape(encodeURIComponent(src)));
-        //var imgsrc = 'data:image/gif;base64,' + base64EncodedStr;
+      
         var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
 
         document.getElementById('imageID').src = imgsrc;

@@ -213,8 +213,34 @@ namespace MVCCapstoneBGS
 
 
             return result;
-
         }
+
+        public List<CaseReport> InsertCaseReport(CaseReport UI, HttpPostedFileBase image1)
+        {
+            var result = new List<CaseReport>();
+            using (IDbConnection con = new SqlConnection(constring))
+            {
+                if (image1 != null)
+                {
+                    UI.CaseReportPhoto = new byte[image1.ContentLength];
+                    image1.InputStream.Read(UI.CaseReportPhoto, 0, image1.ContentLength);
+                }
+
+                con.Open();
+                var param = new DynamicParameters();
+                param.Add("@UserInformationID", UI.UserInformationID);
+                param.Add("@EnvironmentalConcernID", UI.EnvironmentalConcernID);
+                param.Add("@XCoordinates", UI.XCoordinates);
+                param.Add("@YCoordinates", UI.YCoordinates);
+                param.Add("@CaseLocation", UI.CaseLocation);
+                param.Add("@CaseReportPhoto", UI.CaseReportPhoto);
+
+                result = con.Query<CaseReport>(
+                    StoredProcedureEnum.I_CaseReport.ToString(), param, commandType: CommandType.StoredProcedure).ToList();
+            }
+            return result;
+        }
+
         #endregion
 
         #region Delete

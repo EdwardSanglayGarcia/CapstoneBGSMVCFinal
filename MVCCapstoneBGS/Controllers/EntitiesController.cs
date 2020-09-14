@@ -17,9 +17,6 @@ namespace MVCCapstoneBGS.Controllers
         }
 
 
-
-
-
         string Layout_ADashboard= "~/TerraTech/TerraShared/AdministratorDashboard.cshtml";
 
         string Layout_CU = "~/TerraTech/TerraShared/CommunityUser.cshtml";
@@ -491,6 +488,17 @@ namespace MVCCapstoneBGS.Controllers
             ViewBag.Title = LabelStruct.CommunityUser.SubmitReport;
             return View();
         }
+
+        [HttpPost]
+        public ActionResult SubmitReport(CaseReport UI, HttpPostedFileBase image1)
+        {
+            _IDataProvider.InsertCaseReport(UI, image1);
+            ViewBag.VBLayout = Layout_CU;
+            ViewBag.DATETIMENOW = DateTime.Now.Date.ToLongDateString() + " - " + DateTime.Now.TimeOfDay;
+            ViewBag.Title = LabelStruct.CommunityUser.SubmitReport;
+            return View();
+        }
+
 
         public ActionResult ViewStatus()
         {
