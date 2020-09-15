@@ -298,11 +298,11 @@
     $(document).on("click", ".btnUpdate", function () {
         $('#myModalUpdate').modal('show');
         
-        var locations;
         
         var data = table.row($(this).parents('tr')).data();
         var PARAM_CaseReportID = data["CaseReportID"];
         CaseReportID = PARAM_CaseReportID;
+        var locations;
         locations = [
             [
                 "Case No: " + data["CaseReportID"] + "<br />" +

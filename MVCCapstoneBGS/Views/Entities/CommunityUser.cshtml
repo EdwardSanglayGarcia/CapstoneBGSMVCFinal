@@ -127,6 +127,7 @@
         map.setView([14.642285, 121.050823], 15);
         map.setMaxBounds(maxBounds);
         map.fitBounds(maxBounds);
+        map.invalidateSize();
 
         for (var i = 0; i < locations.length; i++) {
             marker =  new L.marker([locations[i][1], locations[i][2]])

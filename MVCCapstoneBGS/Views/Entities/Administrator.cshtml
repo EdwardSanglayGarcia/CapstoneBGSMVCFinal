@@ -204,7 +204,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-chart-area mr-1"></i>
-            My Reported Cases
+            Overall Status
         </div>
 
 
@@ -277,7 +277,7 @@
         var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
         var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
-
+        map.invalidateSize();
         var maxBounds = [
             [21.116625, 131.175528],
             [4.991861, 115.976455]

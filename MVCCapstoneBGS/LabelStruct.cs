@@ -8,6 +8,18 @@ namespace MVCCapstoneBGS
     public struct LabelStruct
     {
 
+        //LIST OF MESSAGES
+        public struct Administrator_Message
+        {
+            
+        }
+
+        public struct CommunityUser_Message
+        {
+            
+        }
+
+        //LIST OF TITLE TAGS
         public struct Administrator
         {
             public const string AdministratorHomepage = "Administrator";
@@ -33,7 +45,6 @@ namespace MVCCapstoneBGS
         public struct Others
         {
             public const string Leaderboards = "Leaderboards";
-
         }
 
 

@@ -70,7 +70,15 @@ namespace MVCCapstoneBGS.Controllers
 
         public ActionResult GetCurrentCaseReport(int UpdatedStatusID)
         {
-            var data = _IDataProvider.GetCaseReport(UpdatedStatusID).Where(x=>x.UpdatedStatusDate.Year == DateTime.Now.Year && x.UpdatedStatusID == UpdatedStatusID);
+            var data = _IDataProvider.GetCaseReport(UpdatedStatusID);/*.Where(x=>x.UpdatedStatusDate.Year == DateTime.Now.Year && x.UpdatedStatusID == UpdatedStatusID);*/
+            JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = int.MaxValue;
+            return json;
+        }
+
+        public ActionResult GetCaseReportPerUser(int UpdatedStatusID, int UserInformationID)
+        {
+            var data = _IDataProvider.GetCaseReport(UpdatedStatusID).Where(x=>x.UserInformationID == UserInformationID);
             JsonResult json = Json(data, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = int.MaxValue;
             return json;

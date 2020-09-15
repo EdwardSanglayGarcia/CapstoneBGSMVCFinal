@@ -23,5 +23,940 @@
         </div>
     </div>
 
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+        <li class="nav-item">
+            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-submitted" role="tab" aria-controls="pills-home" aria-selected="true">Submitted</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-rejected" role="tab" aria-controls="pills-profile" aria-selected="false">Rejected</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-accepted" role="tab" aria-controls="pills-contact" aria-selected="false">Accepted</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-inprogress" role="tab" aria-controls="pills-contact" aria-selected="false">In Progress</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-completed" role="tab" aria-controls="pills-contact" aria-selected="false">Completed</a>
+        </li>
+
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+
+        <div class="tab-pane fade show active" id="pills-submitted" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Submitted Concerns
+                </div>
+
+                <div class="card-body">
+                    <table id="SubmittedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+                </div>
+
+                <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-rejected" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Rejected Concerns
+                </div>
+
+                <div class="card-body">
+                    <table id="RejectedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+                </div>
+
+                <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-accepted" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Accepted Concerns
+                </div>
+
+                <div class="card-body">
+                    <table id="AcceptedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+                </div>
+
+                <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-inprogress" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    In Progress Concerns
+                </div>
+
+                <div class="card-body">
+                    <table id="InProgressTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+                </div>
+
+                <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-completed" role="tabpanel" aria-labelledby="pills-contact-tab">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-area mr-1"></i>
+                    Completed Concerns
+                </div>
+
+                <div class="card-body">
+                    <table id="CompletedTable" class="table table-hover table-striped table-bordered table-responsive-sm" cellspacing="0" style="width:100%; "></table>
+                </div>
+
+                <div class="card-footer small text-muted">Data as of @ViewBag.DATETIMENOW</div>
+            </div>
+        </div>
+
+    </div>
+
+
+    @*MODAL SECTION UPDATE START*@
+    <div class="modal fade" id="myModalUpdate" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content" id="modalwindow">
+                <div class="modal-header">
+                    <h3 class="modal-title Title">View Status: User Submission</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-md-7">
+                            <div class="row-1" style="margin-bottom:10px; height:250px;">
+                                <img src="" id="imageID" style="width:100%; height:245px" />
+
+                            </div>
+
+                            <div id="mapid" class="row-1" style="border:double; margin-bottom:10px; height: 250px;">
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseReportNo" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Report No.</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbCaseLocation" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-name">Case Location</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbConcern" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Concern</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateReported" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Reported</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbDateUpdated" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Date Updated</label>
+                            </div>
+                            <div class="md-form mb-3">
+                                <input type="text" id="tbNotes" class="form-control validate" disabled>
+                                <label data-error="wrong" data-success="right" for="orangeForm-text">Notes</label>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <p>Powered by TerraTechPH</p>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" title="Close">Close</button>
+                </div>
+            </div>
+            <!-- Modal content-->
+        </div>
+    </div>
+    @*MODAL SECTION UPDATE END*@
+
+
+
+
 </body>
 </html>
+
+
+<script>
+
+    var map = L.map('mapid');
+    var marker;
+    var maxBounds = [
+        [21.116625, 131.175528],
+        [4.991861, 115.976455]
+    ];
+    map.setMaxBounds(maxBounds);
+    var a = 'https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ';
+    var b = 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    L.tileLayer(b).addTo(map);
+
+    $('.leaflet-control-attribution').hide();
+
+    $('#myModalUpdate').on('shown.bs.modal', function () {
+      
+        $('#myModalUpdate').modal('show');
+
+        setTimeout(function () {
+            map.invalidateSize();
+        }, 10);
+    });
+
+    $("#myModalUpdate").on("hidden.bs.modal", function () {
+        map.removeLayer(marker);
+    });
+
+    $(document).ready(function () {
+        LoadSubmittedTable();
+        LoadRejectedTable();
+        LoadAcceptedTable();
+        LoadInProgressTable();
+        LoadCompletedTable();
+    });
+
+    function LoadSubmittedTable() {
+        table = $('#SubmittedTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReportPerUser",
+                data: {
+                    UpdatedStatusID: 1,
+                    UserInformationID : @Session["UserInformationID"],
+                },
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "View Data",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs btnViewSubmitted' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function LoadRejectedTable() {
+        table = $('#RejectedTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReportPerUser",
+                data: {
+                    UpdatedStatusID: 2,
+                    UserInformationID : @Session["UserInformationID"],
+                },
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "View Data",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs btnViewRejected' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function LoadAcceptedTable() {
+        table = $('#AcceptedTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReportPerUser",
+                data: {
+                    UpdatedStatusID: 3,
+                    UserInformationID : @Session["UserInformationID"],
+                },
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "View Data",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs btnViewAccepted' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function LoadInProgressTable() {
+        table = $('#InProgressTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReportPerUser",
+                data: {
+                    UpdatedStatusID: 4,
+                    UserInformationID : @Session["UserInformationID"],
+                },
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo,
+                            'Handler_GivenName': c.Handler_GivenName,
+                            'Handler_MaidenName': c.Handler_MaidenName,
+                            'Handler_FamilyName': c.Handler_FamilyName,
+                            'Handler_FullName': c.Handler_GivenName + " " + c.Handler_FamilyName,
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "View Data",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs btnViewInProgress' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function LoadCompletedTable() {
+        table = $('#CompletedTable').DataTable({
+            bLengthChange: false,
+            destroy: true,
+            responsive: true,
+            order: [[1, 'asc']],
+            ajax: {
+                type: "GET",
+                "url": "/DataGet/GetCaseReportPerUser",
+                data: {
+                    UpdatedStatusID: 5,
+                    UserInformationID : @Session["UserInformationID"],
+                },
+                dataSrc: function (json) {
+                    var a = new Array();
+                    for (var b = 0; b <= json.length - 1; b++) {
+                        var c = json[b];
+                        a.push({
+                            'CaseReportID': c.CaseReportID,
+                            'UserInformationID': c.UserInformationID,
+                            'FamilyName': c.FamilyName,
+                            'GivenName': c.GivenName,
+                            'MaidenName': c.MaidenName,
+                            'FullName': c.GivenName + " " + c.MaidenName + " " + c.FamilyName,
+                            'EnvironmentalConcernID': c.EnvironmentalConcernID,
+                            'DateReported': c.DateReported,
+                            'Concern': c.Concern,
+                            'UpdatedStatus': c.UpdatedStatus,
+                            'UpdatedStatusDate': c.UpdatedStatusDate,
+                            'CaseLocation': c.CaseLocation,
+                            'XCoordinates': c.XCoordinates,
+                            'YCoordinates': c.YCoordinates,
+                            'Coordinates': "(" + c.XCoordinates + "," + c.YCoordinates + ")",
+                            'DateUpdated': c.DateUpdated,
+                            'Notes': c.Notes,
+                            'CaseReportPhoto': c.CaseReportPhoto,
+                            'Base64Photo': c.Base64Photo
+                        });
+                    }
+                    return a;
+                },
+            },
+            columns: [
+                {
+                    title: "View Data",
+                    "render": function () {
+                        var edit = "<a class='btn btn-primary btn-xs btnViewCompleted' title='Edit' style='color: white'><i class = 'fa fa-1x fa-address-card'></i></a>";
+                        return edit;
+                    },
+
+                },
+                {
+                    title: "No.",
+                    data: "CaseReportID"
+                },
+                {
+                    title: "Date",
+                    data: "DateReported",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    }
+                },
+                {
+                    title: "Date Updated",
+                    data: "UpdatedStatusDate",
+                    "render": function (value) {
+                        if (value === null) return "";
+
+                        var pattern = /Date\(([^)]+)\)/;
+                        var results = pattern.exec(value);
+                        var dt = new Date(parseFloat(results[1]));
+
+                        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                    },
+                    visible: false
+                },
+
+                {
+                    title: "Area",
+                    data: "CaseLocation"
+                },
+                {
+                    title: "Concern",
+                    data: "Concern"
+                },
+
+            ],
+            'columnDefs': [
+                {
+                    "className": "dt-center", "targets": "_all"
+                }],
+        });
+
+        return table;
+    };
+
+    function ConvertToDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+
+        return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+    };
+
+
+
+    $(document).on("click", ".btnViewSubmitted", function () {
+        $('#myModalUpdate').modal('show');
+        document.getElementById("tbCaseReportNo").value = "";
+        document.getElementById("tbConcern").value = "";
+        document.getElementById("tbDateReported").value = "";
+        document.getElementById("tbDateUpdated").value = "";
+        document.getElementById("tbCaseLocation").value = "";
+        document.getElementById("tbNotes").value = "";
+
+        var $tr = $(this).closest('tr');
+        var data = $('#SubmittedTable').DataTable().row($tr).data();
+        document.getElementById("tbCaseReportNo").value = data["CaseReportID"];
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+
+        var locations;
+        locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+        document.getElementById('imageID').src = imgsrc;
+    });
+
+    $(document).on("click", ".btnViewRejected", function () {
+        $('#myModalUpdate').modal('show');
+        document.getElementById("tbCaseReportNo").value = "";
+        document.getElementById("tbConcern").value = "";
+        document.getElementById("tbDateReported").value = "";
+        document.getElementById("tbDateUpdated").value = "";
+        document.getElementById("tbCaseLocation").value = "";
+        document.getElementById("tbNotes").value = "";
+
+        var $tr = $(this).closest('tr');
+        var data = $('#RejectedTable').DataTable().row($tr).data();
+        document.getElementById("tbCaseReportNo").value = data["CaseReportID"];
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+        document.getElementById("tbNotes").value = data["Notes"];
+        var locations;
+        locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+        document.getElementById('imageID').src = imgsrc;
+    });
+
+    $(document).on("click", ".btnViewAccepted", function () {
+        $('#myModalUpdate').modal('show');
+
+        document.getElementById("tbCaseReportNo").value = "";
+        document.getElementById("tbConcern").value = "";
+        document.getElementById("tbDateReported").value = "";
+        document.getElementById("tbDateUpdated").value = "";
+        document.getElementById("tbCaseLocation").value = "";
+        document.getElementById("tbNotes").value = "";
+        var $tr = $(this).closest('tr');
+        var data = $('#AcceptedTable').DataTable().row($tr).data();
+        document.getElementById("tbCaseReportNo").value = data["CaseReportID"];
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+
+        var locations;
+        locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+        document.getElementById('imageID').src = imgsrc;
+    });
+
+    $(document).on("click", ".btnViewInProgress", function () {
+        $('#myModalUpdate').modal('show');
+
+        document.getElementById("tbCaseReportNo").value = "";
+        document.getElementById("tbConcern").value = "";
+        document.getElementById("tbDateReported").value = "";
+        document.getElementById("tbDateUpdated").value = "";
+        document.getElementById("tbCaseLocation").value = "";
+        document.getElementById("tbNotes").value = "";
+        var $tr = $(this).closest('tr');
+        var data = $('#InProgressTable').DataTable().row($tr).data();
+        document.getElementById("tbCaseReportNo").value = data["CaseReportID"];
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+        document.getElementById("tbNotes").value = "Handled by: "+ data["Handler_FullName"];
+        var locations;
+        locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+        document.getElementById('imageID').src = imgsrc;
+    });
+
+    $(document).on("click", ".btnViewCompleted", function () {
+        $('#myModalUpdate').modal('show');
+
+        document.getElementById("tbCaseReportNo").value = "";
+        document.getElementById("tbConcern").value = "";
+        document.getElementById("tbDateReported").value = "";
+        document.getElementById("tbDateUpdated").value = "";
+        document.getElementById("tbCaseLocation").value = "";
+        document.getElementById("tbNotes").value = "";
+        var $tr = $(this).closest('tr');
+        var data = $('#CompletedTable').DataTable().row($tr).data();
+        document.getElementById("tbCaseReportNo").value = data["CaseReportID"];
+        document.getElementById("tbConcern").value = data["Concern"];
+        document.getElementById("tbDateReported").value = ConvertToDate(data["DateReported"]);
+        document.getElementById("tbDateUpdated").value = ConvertToDate(data["UpdatedStatusDate"]);
+        document.getElementById("tbCaseLocation").value = data["CaseLocation"] + " [" + (Math.round(data["XCoordinates"] * 100) / 100).toFixed(2) + "," + (Math.round(data["YCoordinates"] * 100) / 100).toFixed(2) + "]";
+
+        var locations;
+        locations = [
+            [
+                "Case No: " + data["CaseReportID"] + "<br />" +
+                "Date Reported: " + ConvertToDate(data["DateReported"]) + "<br />" +
+                "Date Updated: " + ConvertToDate(data["UpdatedStatusDate"]) + "<br />" +
+                "Type: " + data["Concern"] + "<br />" +
+                "Location: " + data["CaseLocation"] + " [" + data["XCoordinates"] + "," + data["YCoordinates"] + "]"
+                , data["XCoordinates"]
+                , data["YCoordinates"]
+            ]
+        ];
+
+        map.setView([data["XCoordinates"], data["YCoordinates"]], 20);
+
+        marker = new L.marker([locations[0][1], locations[0][2]])
+            .bindPopup(locations[0][0])
+            .addTo(map);
+
+        var imgsrc = 'data:image/gif;base64,' + data["Base64Photo"];
+        document.getElementById('imageID').src = imgsrc;
+    });
+</script>

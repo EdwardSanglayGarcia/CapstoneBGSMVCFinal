@@ -186,7 +186,10 @@
             order: [[1, 'asc']],
             ajax: {
                 type: "GET",
-                "url": "/DataGet/GetCurrentCaseReport?UpdatedStatusID=1",
+                "url": "/DataGet/GetCurrentCaseReport",
+                data: {
+                    UpdatedStatusID: 1,
+                },
                 dataSrc: function (json) {
                     var a = new Array();
                     for (var b = 0; b <= json.length - 1; b++) {
